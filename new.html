@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - sukuna.stream</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+
+        /* Sidebar container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80px; /* collapsed width */
+  background-color: transparent; /* make transparent */
+  padding: 20px 0;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* Expand on hover */
+.sidebar:hover {
+  width: 220px;
+  background-color: rgba(12, 12, 12, 0.85); /* dark bg appears only on hover */
+  backdrop-filter: blur(10px); /* frosted glass effect */
+}
+
+/* Logo */
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 100px;
+}
+.sidebar .logo img {
+  width: 40px;
+  transition: width 0.3s;
+}
+.sidebar:hover .logo img {
+  width: 120px;
+}
+
+/* Navigation Links */
+.sidebar .nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar .nav-links li {
+  margin: 20px 0;
+}
+.sidebar .nav-links a {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+/* Icon style */
+.sidebar .nav-links a i {
+  font-size: 1.4rem;
+  margin-right: 15px;
+}
+
+/* Hide text when collapsed */
+.sidebar .nav-links a span {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.sidebar:hover .nav-links a span {
+  opacity: 1;
+}
+
+/* Hover effect on items */
+.sidebar .nav-links a:hover {
+  background-color: rgba(26, 26, 26, 0.7);
+  border-radius: 6px;
+}
+
+
+
+    .contact-container {
+      max-width: 900px;
+      margin: 80px auto;
+      background: rgba(20, 20, 20, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .contact-heading {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #e50914;
+    }
+
+    .form-control {
+      background: #1c1c1c;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    .form-control:focus {
+      background: #222;
+      color: #fff;
+      border-color: #e50914;
+      box-shadow: none;
+    }
+
+    .btn-submit {
+      background: #e50914;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+    .btn-submit:hover {
+      background: #ff3333;
+    }
+
+    .contact-info {
+      margin-top: 30px;
+    }
+    .contact-info i {
+      font-size: 1.2rem;
+      margin-right: 8px;
+      color: #e50914;
+    }
+  </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+  <div class="logo">
+    <img src="Geometric Blue _A_ Logo Design.png" alt="Logo">
+  </div>
+  <ul class="nav-links">
+    <li><a href="indexx.html"><i class="bi bi-house-door"></i> <span>Home</span></a></li>
+    <li><a href="search.html"><i class="bi bi-search"></i> <span>Search</span></a></li>
+    <li><a href="new.html"><i class="bi bi-telephone"></i> <span>contact us</span></a></li>
+    <li><a href="login.html"><i class="bi bi-person"></i> <span>login</span></a></li>
+  </ul>
+</nav>
+<!-- Contact Form Section -->
+<div class="container contact-container">
+  <h2 class="contact-heading">Contact Us</h2>
+  <p class="text-center mb-4">Have questions, suggestions, or need support? Fill the form below or reach us directly!</p>
+
+  <form>
+    <div class="mb-3">
+      <label for="name" class="form-label">Your Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter your name">
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Your Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter your email">
+    </div>
+
+    <div class="mb-3">
+      <label for="message" class="form-label">Your Message</label>
+      <textarea class="form-control" id="message" rows="5" placeholder="Write your message here..."></textarea>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn-submit">Send Message</button>
+    </div>
+  </form>
+
+  <!-- Contact Info -->
+  <div class="contact-info text-center mt-5">
+    <p><i class="bi bi-envelope"></i> Aurastream@gmail.com</p>
+    <p><i class="bi bi-telephone"></i> +91 980000000</p>
+    <p><i class="bi bi-geo-alt"></i> Maharashtra, India</p>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

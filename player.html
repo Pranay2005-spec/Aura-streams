@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Watch Anime - Aura.stream</title>
 
   <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
-  <!-- Video.js (for advanced player controls) -->
+  <!-- Video.js + Theme -->
   <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+  <link href="https://unpkg.com/video.js@8.10.0/dist/themes/city/index.css" rel="stylesheet" />
 
   <style>
     body {
@@ -20,34 +21,37 @@
       color: #fff;
     }
 
-    /* Sidebar */
+    /* === Sidebar === */
     .sidebar {
       position: fixed;
       top: 0;
       left: 0;
       height: 100vh;
       width: 80px;
-      background-color: transparent;
+      background-color: rgba(0, 0, 0, 0.85);
       padding: 20px 0;
       transition: width 0.3s ease, background-color 0.3s ease;
       z-index: 1000;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     .sidebar:hover {
       width: 220px;
-      background-color: rgba(12, 12, 12, 0.85);
+      background-color: rgba(24, 24, 24, 0.95);
       backdrop-filter: blur(10px);
     }
 
     .sidebar .logo {
       text-align: center;
-      margin-bottom: 100px;
+      margin-bottom: 80px;
     }
+
     .sidebar .logo img {
       width: 40px;
       transition: width 0.3s;
     }
+
     .sidebar:hover .logo img {
       width: 120px;
     }
@@ -55,62 +59,95 @@
     .sidebar .nav-links {
       list-style: none;
       padding: 0;
-      margin: 0;
     }
+
     .sidebar .nav-links li {
       margin: 20px 0;
     }
+
     .sidebar .nav-links a {
       display: flex;
       align-items: center;
-      color: #fff;
       padding: 10px 15px;
+      color: #fff;
       text-decoration: none;
-      font-size: 1rem;
       transition: background 0.3s ease;
+      font-size: 1rem;
     }
+
     .sidebar .nav-links a i {
       font-size: 1.4rem;
-      margin-right: 15px;
+      margin-right: 10px;
     }
+
     .sidebar .nav-links a span {
       opacity: 0;
       transition: opacity 0.3s ease;
     }
+
     .sidebar:hover .nav-links a span {
       opacity: 1;
     }
+
     .sidebar .nav-links a:hover {
-      background-color: rgba(26, 26, 26, 0.7);
-      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
     }
 
-    /* Main content */
+    /* === Content === */
     .content {
-      margin-left: 80px;
+      margin-left: 80px; /* Fixed to sidebar collapsed width */
       padding: 20px;
-      transition: margin-left 0.3s ease;
-    }
-    .sidebar:hover ~ .content {
-      margin-left: 220px;
     }
 
-    /* Video player container */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 60px;
+      }
+
+      .sidebar:hover {
+        width: 200px;
+      }
+
+      .content {
+        margin-left: 60px;
+        padding: 15px;
+      }
+
+      .sidebar .nav-links a span {
+        display: none;
+      }
+
+      .sidebar:hover .nav-links a span {
+        display: inline;
+        opacity: 1;
+      }
+    }
+
+    /* === Video Player === */
     .video-container {
       max-width: 1000px;
-      margin: 20px auto;
+      margin: 0 auto;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      background: #000;
     }
 
-    /* Episode list */
-    .episode-list {
-      background: #181818;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 20px;
+    .video-js {
+      width: 100%;
+      height: auto;
     }
+
+    /* === Episode List === */
+    .episode-list {
+      background-color: #181818;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 1000px;
+    }
+
     .episode-list a {
       display: block;
       padding: 10px 12px;
@@ -119,48 +156,56 @@
       border-bottom: 1px solid #2a2a2a;
       transition: background 0.3s ease;
     }
+
     .episode-list a:hover {
-      background: #333;
+      background-color: #333;
       color: #fff;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
+  <!-- ≡ Sidebar -->
   <nav class="sidebar">
     <div class="logo">
-      <img src="Geometric Blue _A_ Logo Design.png" alt="Logo">
+      <a href="login.html">
+        <img src="Geometric Blue _A_ Logo Design.png" alt="Aura Logo" />
+      </a>
     </div>
     <ul class="nav-links">
-      <li><a href="indexx.html"><i class="bi bi-house-door"></i> <span>Home</span></a></li>
-      <li><a href="search.html"><i class="bi bi-search"></i> <span>Search</span></a></li>
-      <li><a href="new.html"><i class="bi bi-telephone"></i> <span>Contact Us</span></a></li>
-      <li><a href="login.html"><i class="bi bi-person"></i> <span>Login</span></a></li>
+      <li><a href="indexx.html"><i class="bi bi-house-door"></i><span>Home</span></a></li>
+      <li><a href="search.html"><i class="bi bi-search"></i><span>Search</span></a></li>
+      <li><a href="contact.html"><i class="bi bi-telephone"></i><span>Contact</span></a></li>
+      <li><a href="login.html"><i class="bi bi-person"></i><span>Login</span></a></li>
     </ul>
   </nav>
 
-  <!-- Main Content -->
+  <!-- ≡ Content -->
   <div class="content">
+    <h3 class="text-center mb-4">Now Playing: Big Buck Bunny</h3>
 
-    <!-- Video Player -->
-    <div class="video-container">
+    <!-- ≡ Video Player -->
+    <div class="video-container mb-5">
       <video
         id="my-video"
-        class="video-js vjs-big-play-centered"
+        class="video-js vjs-theme-city vjs-big-play-centered"
         controls
         preload="auto"
-        width="1000"
-        height="520"
-        poster="thumbnail.jpg"
-        data-setup="{}"
+        poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg"
+        data-setup='{
+          "playbackRates": [0.5, 1, 1.5, 2],
+          "fluid": true
+        }'
       >
-        <source src="your-video.mp4" type="video/mp4" />
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+        <track label="English" kind="subtitles" srclang="en"
+          src="https://gist.githubusercontent.com/zenthangplus/ea71b03a91d5b3a36d5e1b4c6f653c0d/raw/63320dc656bae7a819a51c37ba7e90a7de48b6d3/bbb-en.vtt"
+          default />
         Sorry, your browser does not support HTML5 video.
       </video>
     </div>
 
-    <!-- Episode List -->
+    <!-- ≡ Episode List -->
     <div class="episode-list">
       <h4>Episodes</h4>
       <a href="player.html?ep=1">Episode 1</a>
@@ -170,7 +215,7 @@
     </div>
   </div>
 
-  <!-- Bootstrap & Video.js Scripts -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 </body>

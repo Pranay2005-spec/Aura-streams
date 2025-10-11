@@ -308,25 +308,18 @@ body {
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 0;       /* collapse completely */
+    width: 70px;       /* collapse completely */
     overflow: hidden;
-    background-color: rgba(12, 12, 12, 0.95);
     position: fixed;
     z-index: 1000;
     transition: width 0.3s ease;
   }
 
   .sidebar:hover {
-    width: 200px; /* optional: allow swipe/hover on tablets */
+    width: 190px; /* optional: allow swipe/hover on tablets */
   }
 
-  .sidebar .logo img {
-    width: 0; /* hide logo on mobile */
-  }
 
-  .sidebar .nav-links a span {
-    display: none; /* hide text for mobile collapsed sidebar */
-  }
 }
 
 

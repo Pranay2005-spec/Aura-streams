@@ -211,5 +211,72 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.signup-container form');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('signupEmail');
+    const passwordInput = document.getElementById('signupPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    function showError(input, message) {
+      clearError(input);
+      const error = document.createElement('div');
+      error.className = 'text-danger mt-1 small';
+      error.textContent = message;
+      input.classList.add('is-invalid');
+      input.parentNode.appendChild(error);
+    }
+
+    function clearError(input) {
+      input.classList.remove('is-invalid');
+      const existingErrors = input.parentNode.querySelectorAll('.text-danger');
+      existingErrors.forEach(err => err.remove());
+    }
+
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.toLowerCase());
+    }
+
+    form.addEventListener('submit', function (e) {
+      let valid = true;
+
+      // Clear previous errors
+      [nameInput, emailInput, passwordInput, confirmPasswordInput].forEach(clearError);
+
+      // Full Name
+      if (nameInput.value.trim() === '') {
+        showError(nameInput, 'Full name is required.');
+        valid = false;
+      }
+
+      // Email
+      if (emailInput.value.trim() === '') {
+        showError(emailInput, 'Email is required.');
+        valid = false;
+      } else if (!isValidEmail(emailInput.value.trim())) {
+        showError(emailInput, 'Enter a valid email address.');
+        valid = false;
+      }
+
+      // Password
+      if (passwordInput.value.length < 6) {
+        showError(passwordInput, 'Password must be at least 6 characters.');
+        valid = false;
+      }
+
+      // Confirm Password
+      if (confirmPasswordInput.value !== passwordInput.value) {
+        showError(confirmPasswordInput, 'Passwords do not match.');
+        valid = false;
+      }
+
+      if (!valid) {
+        e.preventDefault(); // Stop form submission
+      }
+    });
+  });
+</script>
 </body>
 </html>

@@ -202,5 +202,56 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.login-container form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    function showError(input, message) {
+      clearError(input);
+      const error = document.createElement('div');
+      error.className = 'text-danger mt-1 small';
+      error.textContent = message;
+      input.classList.add('is-invalid');
+      input.parentNode.appendChild(error);
+    }
+
+    function clearError(input) {
+      input.classList.remove('is-invalid');
+      const existingErrors = input.parentNode.querySelectorAll('.text-danger');
+      existingErrors.forEach(err => err.remove());
+    }
+
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.toLowerCase());
+    }
+
+    form.addEventListener('submit', function (e) {
+      let valid = true;
+
+      clearError(emailInput);
+      clearError(passwordInput);
+
+      if (emailInput.value.trim() === '') {
+        showError(emailInput, 'Email is required.');
+        valid = false;
+      } else if (!isValidEmail(emailInput.value.trim())) {
+        showError(emailInput, 'Enter a valid email address.');
+        valid = false;
+      }
+
+      if (passwordInput.value.trim() === '') {
+        showError(passwordInput, 'Password is required.');
+        valid = false;
+      }
+
+      if (!valid) {
+        e.preventDefault(); // Prevent form submission
+      }
+    });
+  });
+</script>
 </body>
 </html>

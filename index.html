@@ -322,6 +322,59 @@
   }
 }
 
+.carousel-overlay {
+  position: absolute;
+  bottom: 20%;
+  left: 5%;
+  max-width: 50%;
+  z-index: 2;
+  color: white;
+  text-shadow: 1px 1px 8px rgba(0,0,0,0.9);
+}
+
+@media (max-width: 768px) {
+  .carousel-overlay {
+    bottom: 10%;
+    left: 5%;
+    max-width: 90%;
+  }
+
+  .carousel-title {
+    font-size: 1.8rem;
+  }
+
+  .carousel-desc {
+    font-size: 1rem;
+  }
+
+  .btn-lg {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+.carousel-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.carousel-desc {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.carousel .btn-danger {
+  background-color: #e50914;
+  border: none;
+  font-weight: 500;
+  border-radius: 30px;
+  transition: background 0.3s ease;
+}
+
+.carousel .btn-danger:hover {
+  background-color: #ff1e1e;
+}
+
   </style>
 </head>
 <body>
@@ -358,40 +411,49 @@
     
   </div>
 
+ <!-- 🎬 Enhanced Anime Hero Carousel -->
+<div id="animeHeroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="6000">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#animeHeroCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#animeHeroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#animeHeroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
   <!-- Carousel Inner -->
   <div class="carousel-inner">
+
     <!-- Slide 1 -->
-    <div class="carousel-item active" style="background-image: url('memory.jpg');">
+    <div class="carousel-item active" style="background-image: url('memory.jpg'); background-size: cover; background-position: center;">
       <div class="dark-gradient"></div>
       <div class="carousel-overlay">
-        <h2 class="carousel-title">Memories of Murder</h2>
-        <p class="carousel-desc">Thriller.</p>
-        <a href="player.html" class="btn btn-danger btn-lg">Watch Now</a>
+        <h2 class="carousel-title mb-2">Memories of Murder</h2>
+        <p class="carousel-desc mb-3">A chilling thriller by Bong Joon-ho. Based on true events.</p>
+        <a href="player.html" class="btn btn-danger btn-lg px-4"><i class="bi bi-play-fill"></i> Watch Now</a>
       </div>
     </div>
 
     <!-- Slide 2 -->
-    <div class="carousel-item" style="background-image: url('fightclub.jpg');">
+    <div class="carousel-item" style="background-image: url('fightclub.jpg'); background-size: cover; background-position: center;">
       <div class="dark-gradient"></div>
       <div class="carousel-overlay">
-        <h2 class="carousel-title">Fight club</h2>
-        <p class="carousel-desc">Psychological</p>
-        <a href="player.html" class="btn btn-danger btn-lg">Watch Now</a>
+        <h2 class="carousel-title mb-2">Fight Club</h2>
+        <p class="carousel-desc mb-3">Psychological thriller that digs into identity and anarchy.</p>
+        <a href="player.html" class="btn btn-danger btn-lg px-4"><i class="bi bi-play-fill"></i> Watch Now</a>
       </div>
     </div>
 
     <!-- Slide 3 -->
-    <div class="carousel-item" style="background-image: url('anayam.jpg');">
+    <div class="carousel-item" style="background-image: url('anayam.jpg'); background-size: cover; background-position: center;">
       <div class="dark-gradient"></div>
       <div class="carousel-overlay">
-        <h2 class="carousel-title">Anayam Rasoolam</h2>
-        <p class="carousel-desc">Romance</p>
-        <a href="player.html" class="btn btn-danger btn-lg">Watch Now</a>
+        <h2 class="carousel-title mb-2">Anayam Rasoolam</h2>
+        <p class="carousel-desc mb-3">A touching romantic journey through the streets of Kochi.</p>
+        <a href="player.html" class="btn btn-danger btn-lg px-4"><i class="bi bi-play-fill"></i> Watch Now</a>
       </div>
     </div>
   </div>
 
-  
   <!-- Controls -->
   <button class="carousel-control-prev" type="button" data-bs-target="#animeHeroCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon"></span>
@@ -400,7 +462,6 @@
     <span class="carousel-control-next-icon"></span>
   </button>
 </div>
-
 
 <hr>
 <!-- Genre Grid Section -->
@@ -491,156 +552,249 @@
 </div>
 </section>
 
-
-<!-- new movie cards section-->
+<!-- top rated movies-->
  <section>
-  
   <div class="container my-5">
-  <div class="row g-4 justify-content-center">
-    <h3 class="section-heading"> New Movies</h3>
-    <!-- Card 1 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="eternal.jpg" alt="eternal of sunshine">
-          <div class="anime-overlay"><p>2h 30min</p></div>
-        </div>
-        <h5 class="anime-title">Eternal Sunshine of the Spotless Mind </h5>
-      </div>
-    </div>
+    <div class="row g-4 justify-content-center">
+      <h3 class="section-heading"> New Movies</h3>
 
-    <!-- Card 2 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="sci-fi.jpg" alt="sci fi image">
-          <div class="anime-overlay"><p>2h 30min</p></div>
+      <!-- Card 1 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="eternal.jpg" alt="eternal of sunshine">
+            <div class="anime-overlay"><p>2h 30min</p></div>
+          </div>
+          <h5 class="anime-title">Eternal Sunshine of the Spotless Mind</h5>
+          <p class="text-center text-warning m-0">⭐ 4.7/5</p>
         </div>
-        <h5 class="anime-title">Stranger things</h5>
       </div>
-    </div>
 
-    <!-- Card 3 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="inception.jpg" alt="inception image">
-          <div class="anime-overlay"><p>2h 12min</p></div>
+      <!-- Card 2 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="sci-fi.jpg" alt="sci fi image">
+            <div class="anime-overlay"><p>2h 30min</p></div>
+          </div>
+          <h5 class="anime-title">Stranger Things</h5>
+          <p class="text-center text-warning m-0">⭐ 4.6/5</p>
         </div>
-        <h5 class="anime-title">Inception</h5>
       </div>
-    </div>
 
-    <!-- Card 4 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="500days.jpg" alt="500 days of summer">
-          <div class="anime-overlay"><p>2h 32min</p></div>
+      <!-- Card 3 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="inception.jpg" alt="inception image">
+            <div class="anime-overlay"><p>2h 12min</p></div>
+          </div>
+          <h5 class="anime-title">Inception</h5>
+          <p class="text-center text-warning m-0">⭐ 4.8/5</p>
         </div>
-        <h5 class="anime-title">500 Days of summer</h5>
       </div>
-    </div>
 
-    <!-- Card 5 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="oldboy.png" alt="old boy ">
-          <div class="anime-overlay"><p>2h 1min</p></div>
+      <!-- Card 4 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="500days.jpg" alt="500 days of summer">
+            <div class="anime-overlay"><p>2h 32min</p></div>
+          </div>
+          <h5 class="anime-title">500 Days of Summer</h5>
+          <p class="text-center text-warning m-0">⭐ 3.9/5</p>
         </div>
-        <h5 class="anime-title">Old boy</h5>
       </div>
-    </div>
 
-    <!-- Card 6 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="isaw.jpg" alt="i saw the">
-          <div class="anime-overlay"><p>1h 45min</p></div>
+      <!-- Card 5 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="oldboy.png" alt="old boy">
+            <div class="anime-overlay"><p>2h 1min</p></div>
+          </div>
+          <h5 class="anime-title">Oldboy</h5>
+          <p class="text-center text-warning m-0">⭐ 4.4/5</p>
         </div>
-        <h5 class="anime-title">I saw the Devil</h5>
       </div>
-    </div>
 
+      <!-- Card 6 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="isaw.jpg" alt="i saw the devil">
+            <div class="anime-overlay"><p>1h 45min</p></div>
+          </div>
+          <h5 class="anime-title">I Saw the Devil</h5>
+          <p class="text-center text-warning m-0">⭐ 4.5/5</p>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
 </section>
 
- <section>
+<!-- new movies -->
+<section>
+  <div class="container my-5">
+    <div class="row g-4 justify-content-center">
+      <h3 class="section-heading"> New Movies</h3>
 
-<div class="container my-5">
-  <div class="row g-4 justify-content-center">
-    <h3 class="section-heading"> Trending now</h3>
-    <!-- Card 1 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="final.jpg" alt="final destination">
-          <div class="anime-overlay"><p>2h 3min</p></div>
+      <!-- Card 1 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="eternal.jpg" alt="eternal of sunshine">
+            <div class="anime-overlay"><p>2h 30min</p></div>
+          </div>
+          <h5 class="anime-title">Eternal Sunshine of the Spotless Mind</h5>
+          <p class="text-center text-warning m-0">⭐ 4.7/5</p>
         </div>
-        <h5 class="anime-title">Final Destination</h5>
       </div>
-    </div>
 
-    <!-- Card 2 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="got.jpg" alt="game of thrones">
-          <div class="anime-overlay"><p>2h 32min</p></div>
+      <!-- Card 2 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="sci-fi.jpg" alt="sci fi image">
+            <div class="anime-overlay"><p>2h 30min</p></div>
+          </div>
+          <h5 class="anime-title">Stranger Things</h5>
+          <p class="text-center text-warning m-0">⭐ 4.6/5</p>
         </div>
-        <h5 class="anime-title">Game Of Thrones</h5>
       </div>
-    </div>
 
-    <!-- Card 3 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="sopranos.jpg" alt="sopranos">
-          <div class="anime-overlay"><p>2h 1min</p></div>
+      <!-- Card 3 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="inception.jpg" alt="inception image">
+            <div class="anime-overlay"><p>2h 12min</p></div>
+          </div>
+          <h5 class="anime-title">Inception</h5>
+          <p class="text-center text-warning m-0">⭐ 4.8/5</p>
         </div>
-        <h5 class="anime-title">Sopranos</h5>
       </div>
-    </div>
 
-    <!-- Card 4 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="breaking.jpg" alt="breaking bad">
-          <div class="anime-overlay"><p>2h 3min</p></div>
+      <!-- Card 4 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="500days.jpg" alt="500 days of summer">
+            <div class="anime-overlay"><p>2h 32min</p></div>
+          </div>
+          <h5 class="anime-title">500 Days of Summer</h5>
+          <p class="text-center text-warning m-0">⭐ 3.9/5</p>
         </div>
-        <h5 class="anime-title">Breaking Bad</h5>
       </div>
-    </div>
 
-    <!-- Card 5 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="dexter.jpg" alt="dexter">
-          <div class="anime-overlay"><p>2h </p></div>
+      <!-- Card 5 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="oldboy.png" alt="old boy ">
+            <div class="anime-overlay"><p>2h 1min</p></div>
+          </div>
+          <h5 class="anime-title">Oldboy</h5>
+          <p class="text-center text-warning m-0">⭐ 4.4/5</p>
         </div>
-        <h5 class="anime-title">Dexter</h5>
       </div>
-    </div>
 
-    <!-- Card 6 -->
-    <div class="col-6 col-md-2">
-      <div class="anime-card">
-        <div class="anime-thumb">
-          <img src="you.jpg" alt="you">
-          <div class="anime-overlay"><p>2h 35min</p></div>
+      <!-- Card 6 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="isaw.jpg" alt="i saw the">
+            <div class="anime-overlay"><p>1h 45min</p></div>
+          </div>
+          <h5 class="anime-title">I Saw the Devil</h5>
+          <p class="text-center text-warning m-0">⭐ 4.5/5</p>
         </div>
-        <h5 class="anime-title">You</h5>
       </div>
-    </div>
 
+    </div>
   </div>
-</div>
+</section>
+
+<section>
+  <div class="container my-5">
+    <div class="row g-4 justify-content-center">
+      <h3 class="section-heading">Trending Now</h3>
+
+      <!-- Card 1 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="final.jpg" alt="final destination">
+            <div class="anime-overlay"><p>2h 3min</p></div>
+          </div>
+          <h5 class="anime-title">Final Destination</h5>
+          <p class="text-center text-warning m-0">⭐ 4.2/5</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="got.jpg" alt="game of thrones">
+            <div class="anime-overlay"><p>2h 32min</p></div>
+          </div>
+          <h5 class="anime-title">Game Of Thrones</h5>
+          <p class="text-center text-warning m-0">⭐ 4.9/5</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="sopranos.jpg" alt="sopranos">
+            <div class="anime-overlay"><p>2h 1min</p></div>
+          </div>
+          <h5 class="anime-title">Sopranos</h5>
+          <p class="text-center text-warning m-0">⭐ 4.6/5</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="breaking.jpg" alt="breaking bad">
+            <div class="anime-overlay"><p>2h 3min</p></div>
+          </div>
+          <h5 class="anime-title">Breaking Bad</h5>
+          <p class="text-center text-warning m-0">⭐ 4.8/5</p>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="dexter.jpg" alt="dexter">
+            <div class="anime-overlay"><p>2h</p></div>
+          </div>
+          <h5 class="anime-title">Dexter</h5>
+          <p class="text-center text-warning m-0">⭐ 4.3/5</p>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="col-6 col-md-2">
+        <div class="anime-card">
+          <div class="anime-thumb">
+            <img src="you.jpg" alt="you">
+            <div class="anime-overlay"><p>2h 35min</p></div>
+          </div>
+          <h5 class="anime-title">You</h5>
+          <p class="text-center text-warning m-0">⭐ 4.1/5</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- Footer -->

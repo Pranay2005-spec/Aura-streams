@@ -8,8 +8,6 @@
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-
-  <!-- Video.js + Theme -->
   <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
   <link href="https://unpkg.com/video.js@8.10.0/dist/themes/city/index.css" rel="stylesheet" />
 
@@ -21,7 +19,7 @@
       color: #fff;
     }
 
-    /* === Sidebar === */
+    /* Sidebar stays the same */
     .sidebar {
       position: fixed;
       top: 0;
@@ -33,7 +31,6 @@
       transition: width 0.3s ease, background-color 0.3s ease;
       z-index: 1000;
       overflow-x: hidden;
-      overflow-y: auto;
     }
 
     .sidebar:hover {
@@ -94,7 +91,6 @@
       border-radius: 5px;
     }
 
-    /* === Content === */
     .content {
       margin-left: 80px;
       padding: 20px;
@@ -104,34 +100,18 @@
       .sidebar {
         width: 60px;
       }
-
-      .sidebar:hover {
-        width: 200px;
-      }
-
       .content {
         margin-left: 60px;
-        padding: 15px;
-      }
-
-      .sidebar .nav-links a span {
-        display: none;
-      }
-
-      .sidebar:hover .nav-links a span {
-        display: inline;
-        opacity: 1;
       }
     }
 
-    /* === Video Player === */
     .video-container {
       max-width: 1000px;
       margin: 0 auto;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
       background: #000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
     }
 
     .video-js {
@@ -139,12 +119,10 @@
       height: auto;
     }
 
-    /* === Episode List (Hidden) === */
     .episode-list {
       display: none !important;
     }
 
-    /* === Movie Details Section === */
     .movie-details {
       max-width: 1000px;
       margin: 40px auto;
@@ -152,7 +130,6 @@
       border-radius: 12px;
       padding: 25px;
       color: #ccc;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
     .movie-details h3 {
@@ -163,20 +140,19 @@
     .rating {
       color: #f5c518;
       font-size: 1.3rem;
-      margin-bottom: 8px;
     }
 
     .movie-meta {
       font-size: 0.95rem;
-      margin-bottom: 15px;
       color: #aaa;
+      margin-bottom: 15px;
     }
 
     .movie-description {
       line-height: 1.5;
+      color: #ddd;
     }
 
-    /* === More Like This === */
     .more-like-this {
       max-width: 1000px;
       margin: 0 auto 50px auto;
@@ -195,7 +171,6 @@
       overflow: hidden;
       transition: transform 0.3s ease;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
     .recommendation-card:hover {
@@ -208,135 +183,184 @@
       object-fit: cover;
     }
 
-    .recommendation-grid a {
-  text-decoration: none;
-  color: inherit;
-    }
-    .recommendation-card .card-title {
+    .card-title {
       padding: 10px;
       font-size: 0.95rem;
       color: #fff;
     }
 
-    @media (max-width: 768px) {
-      .recommendation-card img {
-        height: 140px;
-      }
+    /* 🎯 Comments Section Styling */
+    .comment-section {
+      max-width: 1000px;
+      margin: 0 auto 70px auto;
+      background: #181818;
+      padding: 20px;
+      border-radius: 10px;
     }
 
-    .more-like-title {
-  color: #ffffff;
-  border-left: 4px solid #ffffff;
-  padding-left: 12px;
-  font-size: 1.5rem;
-}
+    .comment-form .form-control {
+      background-color: #222;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 8px;
+    }
+
+    .comment-form .form-control:focus {
+      border-color: #f5c518;
+      box-shadow: none;
+    }
+
+    .comment {
+      background-color: #111;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .comment strong {
+      color: #f5c518;
+    }
+
+    .timestamp {
+      font-size: 0.8rem;
+      color: #999;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ≡ Sidebar -->
-  <nav class="sidebar">
-    <div class="logo">
-      <a href="login.html">
-        <img src="Geometric Blue _A_ Logo Design.png" alt="Aura Logo" />
+<!-- ≡ Sidebar -->
+<nav class="sidebar">
+  <div class="logo">
+    <a href="login.html">
+      <img src="Geometric Blue _A_ Logo Design.png" alt="Aura Logo" />
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html"><i class="bi bi-house-door"></i><span>Home</span></a></li>
+    <li><a href="search.html"><i class="bi bi-search"></i><span>Search</span></a></li>
+    <li><a href="contact.html"><i class="bi bi-telephone"></i><span>Contact</span></a></li>
+    <li><a href="login.html"><i class="bi bi-person"></i><span>Login</span></a></li>
+  </ul>
+</nav>
+
+<!-- ≡ Content -->
+<div class="content">
+  <h3 class="text-center mb-4">Now Playing: Fight Club</h3>
+
+  <!-- Video Player -->
+  <div class="video-container mb-5">
+    <video
+      id="my-video"
+      class="video-js vjs-theme-city vjs-big-play-centered"
+      controls
+      preload="auto"
+      poster="fightclub.jpg"
+      data-setup='{"playbackRates": [0.5, 1, 1.5, 2], "fluid": true}'
+    >
+      <source src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <!-- Movie Details -->
+  <div class="movie-details">
+    <h3>Fight Club</h3>
+    <div class="rating">★★★★★ (4.8/5)</div>
+    <div class="movie-meta">Genre: Drama, Thriller | Year: 1999 | Duration: 2h 19min</div>
+    <p class="movie-description">
+      An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into something much more. A dark, gripping tale that explores consumerism, identity, and rebellion.
+    </p>
+  </div>
+
+  <!-- More Like This -->
+  <div class="more-like-this">
+    <h4 style="color: #fff;">More Like This</h4>
+    <div class="recommendation-grid">
+      <a href="player.html">
+        <div class="recommendation-card">
+          <img src="breaking.jpg" alt="breaking bad" />
+          <div class="card-title">Breaking bad</div>
+        </div>
       </a>
-    </div>
-    <ul class="nav-links">
-      <li><a href="index.html"><i class="bi bi-house-door"></i><span>Home</span></a></li>
-      <li><a href="search.html"><i class="bi bi-search"></i><span>Search</span></a></li>
-      <li><a href="contact.html"><i class="bi bi-telephone"></i><span>Contact</span></a></li>
-      <li><a href="login.html"><i class="bi bi-person"></i><span>Login</span></a></li>
-    </ul>
-  </nav>
-
-  <!-- ≡ Content -->
-  <div class="content">
-    <h3 class="text-center mb-4">Now Playing: Fight Club</h3>
-
-    <!-- ≡ Video Player -->
-    <div class="video-container mb-5">
-      <video
-        id="my-video"
-        class="video-js vjs-theme-city vjs-big-play-centered"
-        controls
-        preload="auto"
-        poster="fightclub.jpg"
-        data-setup='{
-          "playbackRates": [0.5, 1, 1.5, 2],
-          "fluid": true
-        }'
-      >
-        <source src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4" type="video/mp4" />
-
-        <track
-          label="English"
-          kind="subtitles"
-          srclang="en"
-          src="https://gist.githubusercontent.com/zenthangplus/ea71b03a91d5b3a36d5e1b4c6f653c0d/raw/bbb-en.vtt"
-          default
-        />
-
-        Sorry, your browser does not support HTML5 video.
-      </video>
-    </div>
-
-    <!-- ≡ Movie Info -->
-    <div class="movie-details">
-      <h3>Fight Club</h3>
-      <div class="rating">
-        ★★★★★ (4.8/5)
-      </div>
-      <div class="movie-meta">
-        Genre: Drama, Thriller | Year: 1999 | Duration: 2h 19min
-      </div>
-      <p class="movie-description">
-        An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into something much more. A dark, gripping tale that explores consumerism, identity, and rebellion.
-      </p>
-    </div>
-
-    <!-- ≡ More Like This (Wrapped in <a href>) -->
-    <div class="more-like-this">
-     <h4 class="more-like-title">More Like This</h4>
-      <div class="recommendation-grid">
-        <a href="player.html">
-          <div class="recommendation-card">
-            <img src="breaking.jpg" alt="breaking bad" />
-            <div class="card-title">Breaking bad</div>
-          </div>
-        </a>
-        <a href="player.html">
-          <div class="recommendation-card">
-            <img src="psycho.jpg" alt="american psycho" />
-            <div class="card-title">American Psycho</div>
-          </div>
-        </a>
-        <a href="player.html">
-          <div class="recommendation-card">
-            <img src="inception.jpg" alt="inception" />
-            <div class="card-title">Inception</div>
-          </div>
-        </a>
-        <a href="player.html">
-          <div class="recommendation-card">
-            <img src="isaw.jpg" alt="i saw the devil" />
-            <div class="card-title">I Saw the Devil</div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- ≡ Hidden Episode List -->
-    <div class="episode-list">
-      <h4>Episodes</h4>
-      <a href="player.html?ep=1">Episode 1</a>
-      <a href="player.html?ep=2">Episode 2</a>
-      <a href="player.html?ep=3">Episode 3</a>
-      <a href="player.html?ep=4">Episode 4</a>
+      <a href="player.html">
+        <div class="recommendation-card">
+          <img src="psycho.jpg" alt="american psycho" />
+          <div class="card-title">American Psycho</div>
+        </div>
+      </a>
+      <a href="player.html">
+        <div class="recommendation-card">
+          <img src="inception.jpg" alt="inception" />
+          <div class="card-title">Inception</div>
+        </div>
+      </a>
+      <a href="player.html">
+        <div class="recommendation-card">
+          <img src="isaw.jpg" alt="i saw the devil" />
+          <div class="card-title">I Saw the Devil</div>
+        </div>
+      </a>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+  <!-- Comments Section -->
+  <div class="comment-section mt-5">
+    <h4 class="mb-3">Viewer Comments</h4>
+    <div class="comment-form mb-4">
+      <input type="text" class="form-control mb-2" id="commentName" placeholder="Your Name">
+      <textarea class="form-control mb-2" id="commentText" rows="3" placeholder="Write a comment..."></textarea>
+      <button class="btn btn-danger" onclick="addComment()">Post Comment</button>
+    </div>
+
+    <div id="commentsList"></div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
+<!-- Comments Logic -->
+<script>
+  // Load comments from localStorage
+  document.addEventListener("DOMContentLoaded", () => {
+    const stored = localStorage.getItem("comments");
+    if (stored) {
+      JSON.parse(stored).forEach(c => appendComment(c.name, c.text, c.time));
+    }
+  });
+
+  function addComment() {
+    const name = document.getElementById('commentName').value.trim();
+    const text = document.getElementById('commentText').value.trim();
+    if (!name || !text) {
+      alert("Please enter both name and comment.");
+      return;
+    }
+
+    const time = new Date().toLocaleString();
+    const newComment = { name, text, time };
+    const saved = JSON.parse(localStorage.getItem('comments')) || [];
+    saved.unshift(newComment);
+    localStorage.setItem('comments', JSON.stringify(saved));
+
+    appendComment(name, text, time);
+    document.getElementById('commentName').value = "";
+    document.getElementById('commentText').value = "";
+  }
+
+  function appendComment(name, text, time) {
+    const commentList = document.getElementById("commentsList");
+    const div = document.createElement("div");
+    div.className = "comment";
+    div.innerHTML = `
+      <strong>${name}</strong>
+      <div class="timestamp">${time}</div>
+      <p>${text}</p>
+    `;
+    commentList.prepend(div);
+  }
+</script>
 </body>
 </html>

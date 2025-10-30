@@ -229,6 +229,7 @@
     }
 
     form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Stop default submit for validation
       let valid = true;
 
       clearError(emailInput);
@@ -247,8 +248,21 @@
         valid = false;
       }
 
-      if (!valid) {
-        e.preventDefault(); // Prevent form submission
+      // ✅ Only check credentials if form is valid
+      if (valid) {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Set your correct login credentials here
+        const correctEmail = "admin@gmail.com";
+        const correctPassword = "123456";
+
+        if (email === correctEmail && password === correctPassword) {
+          // Redirect to index.html
+          window.location.href = "index.html";
+        } else {
+          alert("Invalid email or password. Please try again.");
+        }
       }
     });
   });

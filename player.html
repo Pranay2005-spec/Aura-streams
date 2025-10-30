@@ -96,7 +96,7 @@
 
     /* === Content === */
     .content {
-      margin-left: 80px; /* Fixed to sidebar collapsed width */
+      margin-left: 80px;
       padding: 20px;
     }
 
@@ -139,28 +139,97 @@
       height: auto;
     }
 
-    /* === Episode List === */
+    /* === Episode List (Hidden) === */
     .episode-list {
+      display: none !important;
+    }
+
+    /* === Movie Details Section === */
+    .movie-details {
+      max-width: 1000px;
+      margin: 40px auto;
       background-color: #181818;
       border-radius: 12px;
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 1000px;
-    }
-
-    .episode-list a {
-      display: block;
-      padding: 10px 12px;
+      padding: 25px;
       color: #ccc;
-      text-decoration: none;
-      border-bottom: 1px solid #2a2a2a;
-      transition: background 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
-    .episode-list a:hover {
-      background-color: #333;
+    .movie-details h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .rating {
+      color: #f5c518;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .movie-meta {
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      color: #aaa;
+    }
+
+    .movie-description {
+      line-height: 1.5;
+    }
+
+    /* === More Like This === */
+    .more-like-this {
+      max-width: 1000px;
+      margin: 0 auto 50px auto;
+    }
+
+    .recommendation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .recommendation-card {
+      background: #111;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .recommendation-card:hover {
+      transform: scale(1.05);
+    }
+
+    .recommendation-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .recommendation-grid a {
+  text-decoration: none;
+  color: inherit;
+    }
+    .recommendation-card .card-title {
+      padding: 10px;
+      font-size: 0.95rem;
       color: #fff;
     }
+
+    @media (max-width: 768px) {
+      .recommendation-card img {
+        height: 140px;
+      }
+    }
+
+    .more-like-title {
+  color: #ffffff;
+  border-left: 4px solid #ffffff;
+  padding-left: 12px;
+  font-size: 1.5rem;
+}
   </style>
 </head>
 <body>
@@ -182,7 +251,7 @@
 
   <!-- ≡ Content -->
   <div class="content">
-    <h3 class="text-center mb-4">Now Playing: Big Buck Bunny</h3>
+    <h3 class="text-center mb-4">Now Playing: Fight Club</h3>
 
     <!-- ≡ Video Player -->
     <div class="video-container mb-5">
@@ -191,21 +260,72 @@
         class="video-js vjs-theme-city vjs-big-play-centered"
         controls
         preload="auto"
-        poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg"
+        poster="fightclub.jpg"
         data-setup='{
           "playbackRates": [0.5, 1, 1.5, 2],
           "fluid": true
         }'
       >
-        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-        <track label="English" kind="subtitles" srclang="en"
-          src="https://gist.githubusercontent.com/zenthangplus/ea71b03a91d5b3a36d5e1b4c6f653c0d/raw/63320dc656bae7a819a51c37ba7e90a7de48b6d3/bbb-en.vtt"
-          default />
+        <source src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4" type="video/mp4" />
+
+        <track
+          label="English"
+          kind="subtitles"
+          srclang="en"
+          src="https://gist.githubusercontent.com/zenthangplus/ea71b03a91d5b3a36d5e1b4c6f653c0d/raw/bbb-en.vtt"
+          default
+        />
+
         Sorry, your browser does not support HTML5 video.
       </video>
     </div>
 
-    <!-- ≡ Episode List -->
+    <!-- ≡ Movie Info -->
+    <div class="movie-details">
+      <h3>Fight Club</h3>
+      <div class="rating">
+        ★★★★★ (4.8/5)
+      </div>
+      <div class="movie-meta">
+        Genre: Drama, Thriller | Year: 1999 | Duration: 2h 19min
+      </div>
+      <p class="movie-description">
+        An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into something much more. A dark, gripping tale that explores consumerism, identity, and rebellion.
+      </p>
+    </div>
+
+    <!-- ≡ More Like This (Wrapped in <a href>) -->
+    <div class="more-like-this">
+     <h4 class="more-like-title">More Like This</h4>
+      <div class="recommendation-grid">
+        <a href="player.html">
+          <div class="recommendation-card">
+            <img src="breaking.jpg" alt="breaking bad" />
+            <div class="card-title">Breaking bad</div>
+          </div>
+        </a>
+        <a href="player.html">
+          <div class="recommendation-card">
+            <img src="psycho.jpg" alt="american psycho" />
+            <div class="card-title">American Psycho</div>
+          </div>
+        </a>
+        <a href="player.html">
+          <div class="recommendation-card">
+            <img src="inception.jpg" alt="inception" />
+            <div class="card-title">Inception</div>
+          </div>
+        </a>
+        <a href="player.html">
+          <div class="recommendation-card">
+            <img src="isaw.jpg" alt="i saw the devil" />
+            <div class="card-title">I Saw the Devil</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ≡ Hidden Episode List -->
     <div class="episode-list">
       <h4>Episodes</h4>
       <a href="player.html?ep=1">Episode 1</a>

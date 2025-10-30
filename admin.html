@@ -1,114 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Panel - Aura Streams</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    /* Sidebar Active State */
+    .nav-link.active {
+      background-color: #0d6efd !important;
+      color: white !important;
+    }
+
+    .nav-link:hover {
+      background-color: #e9ecef;
+    }
+
+    .card {
+      transition: 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .sidebar {
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+  </style>
 </head>
 <body>
+
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Aura Admin</a>
-      <button class="btn btn-danger ms-auto" onclick="logout()">Logout</button>
-    </div>
+  <nav class="navbar navbar-dark bg-dark px-3">
+    <a class="navbar-brand fw-bold" href="#">Aura Admin</a>
+    <button class="btn btn-outline-light" onclick="logout()">Logout <i class="bi bi-box-arrow-right"></i></button>
   </nav>
 
   <div class="container-fluid">
     <div class="row">
       <!-- Sidebar -->
-      <div class="col-md-2 bg-light vh-100 p-3">
-        <h5>Menu</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('dashboard')">📊 Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('videos')">🎬 Manage Videos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('users')">👥 Manage Users</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('comments')">💬 View Comments</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('reports')">📑 Reports</a></li>
+      <div class="col-md-2 bg-light sidebar p-3">
+        <h6 class="text-muted mb-3">📁 Admin Menu</h6>
+        <ul class="nav flex-column" id="sidebarMenu">
+          <li class="nav-item"><a class="nav-link active" href="#" onclick="loadContent('dashboard', this)">📊 Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('videos', this)">🎬 Manage Videos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('users', this)">👥 Manage Users</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('comments', this)">💬 Comments</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('reports', this)">📑 Reports</a></li>
         </ul>
       </div>
 
       <!-- Main Content -->
       <div class="col-md-10 p-4" id="contentArea">
-        <h2>Welcome, Admin!</h2>
-        <p>Select an option from the sidebar to manage the platform.</p>
+        <h2>Welcome Admin 🎉</h2>
+        <p>Select a section from sidebar to begin managing Aura Streams.</p>
       </div>
     </div>
   </div>
 
-  <script>
-    function loadContent(section) {
-      let content = document.getElementById("contentArea");
-
-      if(section === "dashboard"){
-        content.innerHTML = `
-          <h2>📊 Dashboard</h2>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="card text-bg-primary mb-3">
-                <div class="card-body">
-                  <h5 class="card-title">Total Users</h5>
-                  <p class="card-text">120</p>
-                </div>
-              </div>
+  <!-- Add Video Modal -->
+  <div class="modal fade" id="addVideoModal" tabindex="-1" aria-labelledby="addVideoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addVideoModalLabel">Add New Video</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="videoForm">
+            <div class="mb-3">
+              <label for="title" class="form-label">Video Title</label>
+              <input type="text" class="form-control" id="title" placeholder="Title">
             </div>
-            <div class="col-md-3">
-              <div class="card text-bg-success mb-3">
-                <div class="card-body">
-                  <h5 class="card-title">Total Videos</h5>
-                  <p class="card-text">85</p>
-                </div>
+            <div class="mb-3">
+              <label for="genre" class="form-label">Genre</label>
+              <input type="text" class="form-control" id="genre" placeholder="Genre">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Add Video</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11;">
+    <div id="liveToast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body">Action completed successfully ✅</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function loadContent(section, element) {
+      const content = document.getElementById("contentArea");
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      if (element) element.classList.add('active');
+
+      if (section === "dashboard") {
+        content.innerHTML = `
+        <h2>📊 Dashboard Overview</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card text-bg-primary mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <p class="fs-4">120</p>
               </div>
             </div>
           </div>
-        `;
+          <div class="col-md-4">
+            <div class="card text-bg-success mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Videos Uploaded</h5>
+                <p class="fs-4">85</p>
+              </div>
+            </div>
+          </div>
+        </div>`;
       }
-      else if(section === "videos"){
+
+      else if (section === "videos") {
         content.innerHTML = `
-          <h2>🎬 Manage Videos</h2>
-          <button class="btn btn-primary mb-3">+ Add New Video</button>
-          <table class="table table-striped">
-            <thead><tr><th>ID</th><th>Title</th><th>Genre</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td>1</td><td>Sample Video</td><td>Action</td><td><button class="btn btn-sm btn-warning">Edit</button> <button class="btn btn-sm btn-danger">Delete</button></td></tr>
-            </tbody>
-          </table>
-        `;
+        <h2>🎬 Manage Videos</h2>
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addVideoModal">+ Add New Video</button>
+        <table class="table table-striped">
+          <thead><tr><th>ID</th><th>Title</th><th>Genre</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Sample Video</td><td>Action</td>
+              <td>
+                <button class="btn btn-warning btn-sm">✏️ Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="showToast()">🗑 Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>`;
       }
-      else if(section === "users"){
+
+      else if (section === "users") {
         content.innerHTML = `
-          <h2>👥 Manage Users</h2>
-          <table class="table table-bordered">
-            <thead><tr><th>UserID</th><th>Name</th><th>Email</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td>U101</td><td>John Doe</td><td>john@example.com</td><td><button class="btn btn-sm btn-danger">Remove</button></td></tr>
-            </tbody>
-          </table>
-        `;
+        <h2>👥 Manage Users</h2>
+        <table class="table table-bordered">
+          <thead><tr><th>UserID</th><th>Name</th><th>Email</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>U101</td><td>John Doe</td><td>john@example.com</td>
+              <td><button class="btn btn-sm btn-danger" onclick="showToast()">Remove</button></td></tr>
+          </tbody>
+        </table>`;
       }
-      else if(section === "comments"){
+
+      else if (section === "comments") {
         content.innerHTML = `
-          <h2>💬 View Comments</h2>
-          <ul class="list-group">
-            <li class="list-group-item">"Great movie!" - User123</li>
-            <li class="list-group-item">"Sound quality can improve." - User456</li>
-          </ul>
-        `;
+        <h2>💬 User Comments</h2>
+        <ul class="list-group">
+          <li class="list-group-item">"Amazing!" - User123</li>
+          <li class="list-group-item">"Improve quality please!" - User456</li>
+        </ul>`;
       }
-      else if(section === "reports"){
+
+      else if (section === "reports") {
         content.innerHTML = `
-          <h2>📑 Reports</h2>
-          <p>Download reports on user activity, video uploads, and comments.</p>
-          <button class="btn btn-outline-primary">Download PDF</button>
-        `;
+        <h2>📑 Reports</h2>
+        <p>Download reports on user activity and videos.</p>
+        <button class="btn btn-outline-primary" onclick="showToast()">📥 Download PDF</button>`;
       }
     }
 
-    function logout(){
-      alert("Logged out successfully!");
-      window.location.href = "admin-login.html";
+    function logout() {
+      showToast("Logged out successfully!");
+      setTimeout(() => window.location.href = "admin-login.html", 1500);
     }
+
+    function showToast(message = "Action completed successfully ✅") {
+      const toastEl = document.getElementById('liveToast');
+      toastEl.querySelector(".toast-body").innerText = message;
+      const toast = new bootstrap.Toast(toastEl);
+      toast.show();
+    }
+
+    // Handle Video Form Submission
+    document.getElementById("videoForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const genre = document.getElementById("genre").value;
+
+      if(title && genre){
+        // You can post this to your backend here
+        showToast("🎬 Video Added: " + title);
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addVideoModal'));
+        modal.hide();
+        this.reset();
+      }
+    });
+
+    // Load default
+    loadContent('dashboard');
   </script>
 </body>
 </html>

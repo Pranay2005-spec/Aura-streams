@@ -3,203 +3,399 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel - Aura Streams</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <title>Aura Streams - Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* Sidebar Active State */
-    .nav-link.active {
-      background-color: #0d6efd !important;
-      color: white !important;
+    :root {
+      --primary: #1abc9c;
+      --dark: #34495e;
+      --light: #f8f9fa;
+      --danger: #e74c3c;
+      --warning: #f39c12;
     }
 
-    .nav-link:hover {
-      background-color: #e9ecef;
+    * {
+      box-sizing: border-box;
     }
 
-    .card {
-      transition: 0.3s ease-in-out;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light);
     }
 
-    .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    header {
+      background-color: var(--dark);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 18px;
+      margin: 0;
     }
 
     .sidebar {
+      width: 220px;
+      background-color: var(--dark);
       height: 100vh;
-      position: sticky;
-      top: 0;
+      color: white;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      padding-top: 20px;
+      overflow-y: auto;
+    }
+
+    .sidebar a {
+      padding: 14px 20px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #2c3e50;
+      border-left: 5px solid var(--primary);
+    }
+
+    .main {
+      margin-left: 240px;
+      padding: 20px;
+      padding-top: 80px;
+    }
+
+    h2 {
+      color: var(--dark);
+      border-left: 4px solid var(--primary);
+      padding-left: 10px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 10px;
+      border-left: 5px solid var(--primary);
+      flex: 1;
+    }
+
+    .analytics {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      background: white;
+    }
+
+    th {
+      background: #eee;
+      text-align: left;
+    }
+
+    button {
+      padding: 6px 10px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-add {
+      background: var(--primary);
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .btn-edit { background: #2980b9; color: white; }
+    .btn-del { background: var(--danger); color: white; }
+    .btn-feature { background: var(--warning); color: white; }
+
+    .featured-row {
+      background: #fff8e1;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .modal {
+      background: white;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 5px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
+
+    .modal h3 {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    .modal-actions {
+      text-align: right;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      display: none;
+      animation: fadeInOut 3s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(20px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(20px);}
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main {
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-dark bg-dark px-3">
-    <a class="navbar-brand fw-bold" href="#">Aura Admin</a>
-    <button class="btn btn-outline-light" onclick="logout()">Logout <i class="bi bi-box-arrow-right"></i></button>
-  </nav>
+<header>
+  <h1><i class="fas fa-video"></i> Aura Streams - Admin</h1>
+  <span>👋 Admin</span>
+</header>
 
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-md-2 bg-light sidebar p-3">
-        <h6 class="text-muted mb-3">📁 Admin Menu</h6>
-        <ul class="nav flex-column" id="sidebarMenu">
-          <li class="nav-item"><a class="nav-link active" href="#" onclick="loadContent('dashboard', this)">📊 Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('videos', this)">🎬 Manage Videos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('users', this)">👥 Manage Users</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('comments', this)">💬 Comments</a></li>
-          <li class="nav-item"><a class="nav-link" href="#" onclick="loadContent('reports', this)">📑 Reports</a></li>
-        </ul>
+<!-- Sidebar -->
+<div class="sidebar">
+  <a href="#dashboard">📊 Dashboard</a>
+  <a href="#videos">🎥 Videos</a>
+  <a href="#comments">💬 Comments</a>
+  <a href="#featured">⭐ Featured</a>
+</div>
+
+<!-- Main Wrapper -->
+<div class="main">
+
+  <!-- Dashboard -->
+  <section id="dashboard">
+    <h2>Dashboard Overview</h2>
+    <div class="analytics">
+      <div class="card">
+        <h4>Total Videos</h4>
+        <p id="stats-videos">0</p>
       </div>
-
-      <!-- Main Content -->
-      <div class="col-md-10 p-4" id="contentArea">
-        <h2>Welcome Admin 🎉</h2>
-        <p>Select a section from sidebar to begin managing Aura Streams.</p>
+      <div class="card">
+        <h4>Total Views</h4>
+        <p id="stats-views">0</p>
       </div>
-    </div>
-  </div>
-
-  <!-- Add Video Modal -->
-  <div class="modal fade" id="addVideoModal" tabindex="-1" aria-labelledby="addVideoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addVideoModalLabel">Add New Video</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="videoForm">
-            <div class="mb-3">
-              <label for="title" class="form-label">Video Title</label>
-              <input type="text" class="form-control" id="title" placeholder="Title">
-            </div>
-            <div class="mb-3">
-              <label for="genre" class="form-label">Genre</label>
-              <input type="text" class="form-control" id="genre" placeholder="Genre">
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Add Video</button>
-          </form>
-        </div>
+      <div class="card">
+        <h4>Top Movie</h4>
+        <p id="stats-top">-</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Toast -->
-  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11;">
-    <div id="liveToast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-body">Action completed successfully ✅</div>
+  <!-- Video Manager -->
+  <section id="videos">
+    <h2>Video Management</h2>
+    <button class="btn-add" onclick="openAddModal()"><i class="fas fa-plus-circle"></i> Add Video</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Views</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="videoTable"></tbody>
+    </table>
+  </section>
+
+  <!-- Comments -->
+  <section id="comments">
+    <h2>Comments</h2>
+    <ul id="commentList"></ul>
+  </section>
+
+  <!-- Featured -->
+  <section id="featured">
+    <h2>Featured Movie</h2>
+    <p><strong>Auto Selected:</strong> <span id="featuredMovie">N/A</span></p>
+  </section>
+</div>
+
+<!-- Modal for Add -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3>Add New Video</h3>
+    <input type="text" id="titleInput" placeholder="Title"/>
+    <input type="number" id="viewsInput" placeholder="Views"/>
+    <div class="modal-actions">
+      <button onclick="addVideo()">Add</button>
+      <button onclick="closeModal()">Cancel</button>
     </div>
   </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function loadContent(section, element) {
-      const content = document.getElementById("contentArea");
-      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-      if (element) element.classList.add('active');
+<div class="toast" id="toast">Saved!</div>
 
-      if (section === "dashboard") {
-        content.innerHTML = `
-        <h2>📊 Dashboard Overview</h2>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card text-bg-primary mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Total Users</h5>
-                <p class="fs-4">120</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-bg-success mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Videos Uploaded</h5>
-                <p class="fs-4">85</p>
-              </div>
-            </div>
-          </div>
-        </div>`;
-      }
+<script>
+  const videos = [
+    { id: 'v1', title: 'Iron Man', views: 1200, featured: false, comments: ['Great movie!', 'Classic MCU start'] },
+    { id: 'v2', title: 'Spider-Man', views: 800, featured: false, comments: ['Fun vibes!', 'Best reboot'] },
+    { id: 'v3', title: 'Endgame', views: 1300, featured: false, comments: ['Legendary end!', 'Awesome scenes'] },
+  ];
 
-      else if (section === "videos") {
-        content.innerHTML = `
-        <h2>🎬 Manage Videos</h2>
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addVideoModal">+ Add New Video</button>
-        <table class="table table-striped">
-          <thead><tr><th>ID</th><th>Title</th><th>Genre</th><th>Actions</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>Sample Video</td><td>Action</td>
-              <td>
-                <button class="btn btn-warning btn-sm">✏️ Edit</button>
-                <button class="btn btn-danger btn-sm" onclick="showToast()">🗑 Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>`;
-      }
-
-      else if (section === "users") {
-        content.innerHTML = `
-        <h2>👥 Manage Users</h2>
-        <table class="table table-bordered">
-          <thead><tr><th>UserID</th><th>Name</th><th>Email</th><th>Actions</th></tr></thead>
-          <tbody>
-            <tr><td>U101</td><td>John Doe</td><td>john@example.com</td>
-              <td><button class="btn btn-sm btn-danger" onclick="showToast()">Remove</button></td></tr>
-          </tbody>
-        </table>`;
-      }
-
-      else if (section === "comments") {
-        content.innerHTML = `
-        <h2>💬 User Comments</h2>
-        <ul class="list-group">
-          <li class="list-group-item">"Amazing!" - User123</li>
-          <li class="list-group-item">"Improve quality please!" - User456</li>
-        </ul>`;
-      }
-
-      else if (section === "reports") {
-        content.innerHTML = `
-        <h2>📑 Reports</h2>
-        <p>Download reports on user activity and videos.</p>
-        <button class="btn btn-outline-primary" onclick="showToast()">📥 Download PDF</button>`;
-      }
-    }
-
-    function logout() {
-      showToast("Logged out successfully!");
-      setTimeout(() => window.location.href = "admin-login.html", 1500);
-    }
-
-    function showToast(message = "Action completed successfully ✅") {
-      const toastEl = document.getElementById('liveToast');
-      toastEl.querySelector(".toast-body").innerText = message;
-      const toast = new bootstrap.Toast(toastEl);
-      toast.show();
-    }
-
-    // Handle Video Form Submission
-    document.getElementById("videoForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      const title = document.getElementById("title").value;
-      const genre = document.getElementById("genre").value;
-
-      if(title && genre){
-        // You can post this to your backend here
-        showToast("🎬 Video Added: " + title);
-        const modal = bootstrap.Modal.getInstance(document.getElementById('addVideoModal'));
-        modal.hide();
-        this.reset();
-      }
+  function renderVideos() {
+    const tbody = document.getElementById("videoTable");
+    tbody.innerHTML = '';
+    videos.forEach((v, i) => {
+      const tr = document.createElement('tr');
+      if (v.featured) tr.classList.add('featured-row');
+      tr.innerHTML = `
+        <td>${v.title}</td>
+        <td>${v.views}</td>
+        <td>
+          <button class="btn-edit" onclick="editVideo(${i})">✏️</button>
+          <button class="btn-del" onclick="deleteVideo(${i})">🗑️</button>
+          <button class="btn-feature" onclick="markFeatured(${i})">⭐</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
     });
+  }
 
-    // Load default
-    loadContent('dashboard');
-  </script>
+  function renderStats() {
+    document.getElementById("stats-videos").textContent = videos.length;
+    document.getElementById("stats-views").textContent = videos.reduce((a,v)=>a+v.views,0);
+    const top = videos.reduce((max,v)=> v.views > max.views ? v : max, videos[0]);
+    document.getElementById("stats-top").textContent = top.title;
+    document.getElementById("featuredMovie").textContent = top.title;
+  }
+
+  function renderComments() {
+    const list = document.getElementById("commentList");
+    list.innerHTML = '';
+    videos.forEach((v, vi) => {
+      v.comments.forEach((c, ci) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${v.title}</strong>: ${c}
+        <button onclick="deleteComment(${vi}, ${ci})">🗑️</button>`;
+        list.appendChild(li);
+      });
+    });
+  }
+
+  function openAddModal() {
+    document.getElementById("modal").style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById("modal").style.display = 'none';
+    document.getElementById("titleInput").value = '';
+    document.getElementById("viewsInput").value = '';
+  }
+
+  function addVideo() {
+    const title = document.getElementById("titleInput").value;
+    const views = parseInt(document.getElementById("viewsInput").value, 10);
+
+    if (!title || isNaN(views)) return alert("Fill all fields");
+
+    videos.push({ id: `v${videos.length+1}`, title, views, featured: false, comments: [] });
+    closeModal();
+    showToast("Video added");
+    updateUI();
+  }
+
+  function editVideo(index) {
+    let newTitle = prompt("New title:", videos[index].title);
+    let newViews = parseInt(prompt("New views:", videos[index].views), 10);
+    if (newTitle && !isNaN(newViews)) {
+      videos[index].title = newTitle;
+      videos[index].views = newViews;
+      showToast("Video updated");
+      updateUI();
+    }
+  }
+
+  function deleteVideo(index) {
+    if (confirm("Delete this video?")) {
+      videos.splice(index, 1);
+      showToast("Video deleted");
+      updateUI();
+    }
+  }
+
+  function markFeatured(index) {
+    videos.forEach(v => v.featured = false);
+    videos[index].featured = true;
+    showToast(`'${videos[index].title}' marked as Featured`);
+    updateUI();
+  }
+
+  function deleteComment(vid, cid) {
+    videos[vid].comments.splice(cid, 1);
+    showToast("Comment removed");
+    renderComments();
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.style.display = "block";
+    setTimeout(() => toast.style.display = "none", 3000);
+  }
+
+  function updateUI() {
+    renderVideos();
+    renderStats();
+    renderComments();
+  }
+
+  updateUI();
+</script>
+
 </body>
 </html>

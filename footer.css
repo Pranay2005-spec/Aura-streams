@@ -1,0 +1,105 @@
+/* Shared footer styles */
+footer {
+  background: linear-gradient(to top, rgba(9, 9, 11, 1), var(--bg-card, rgba(24, 24, 27, 0.8)));
+  border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  padding: 60px 0 30px;
+  margin-top: 80px;
+}
+
+.footer-brand h5 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.footer-brand h5 span {
+  background: var(--gradient-1, linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-brand p {
+  color: var(--text-secondary, #a1a1aa);
+  max-width: 300px;
+}
+
+.footer-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary, #fafafa);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: var(--text-secondary, #a1a1aa);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links a:hover {
+  color: var(--primary, #8b5cf6);
+  transform: translateX(5px);
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-links a {
+  color: var(--text-secondary, #a1a1aa);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-links a:hover {
+  color: var(--secondary, #06b6d4);
+  transform: translateX(5px);
+}
+
+.social-links a i {
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  background: var(--bg-glass, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover i {
+  background: var(--primary, #8b5cf6);
+  border-color: var(--primary, #8b5cf6);
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  color: var(--text-muted, #71717a);
+  font-size: 0.9rem;
+}
+
+.footer-bottom span {
+  color: var(--text-primary, #fafafa);
+  font-weight: 600;
+}

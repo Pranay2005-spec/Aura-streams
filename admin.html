@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aura Streams - Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="footer.css">
+  <style>
+    :root {
+      --primary: #1abc9c;
+      --dark: #34495e;
+      --light: #f8f9fa;
+      --danger: #e74c3c;
+      --warning: #f39c12;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light);
+    }
+
+    header {
+      background-color: var(--dark);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: var(--dark);
+      height: 100vh;
+      color: white;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      padding-top: 20px;
+      overflow-y: auto;
+    }
+
+    .sidebar a {
+      padding: 14px 20px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #2c3e50;
+      border-left: 5px solid var(--primary);
+    }
+
+    .main {
+      margin-left: 240px;
+      padding: 20px;
+      padding-top: 80px;
+    }
+
+    h2 {
+      color: var(--dark);
+      border-left: 4px solid var(--primary);
+      padding-left: 10px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 10px;
+      border-left: 5px solid var(--primary);
+      flex: 1;
+    }
+
+    .analytics {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      background: white;
+    }
+
+    th {
+      background: #eee;
+      text-align: left;
+    }
+
+    button {
+      padding: 6px 10px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-add {
+      background: var(--primary);
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .btn-edit { background: #2980b9; color: white; }
+    .btn-del { background: var(--danger); color: white; }
+    .btn-feature { background: var(--warning); color: white; }
+
+    .featured-row {
+      background: #fff8e1;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .modal {
+      background: white;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 5px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
+
+    .modal h3 {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    .modal-actions {
+      text-align: right;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      display: none;
+      animation: fadeInOut 3s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(20px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(20px);}
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+    }
+
+    /* Login Modal */
+    .login-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .login-box h2 {
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #1abc9c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .login-box button:hover {
+      background-color: #17a689;
+    }\n</style>
+</head>
+<body>
+
+<header>
+  <h1><i class="fas fa-video"></i> Aura Streams - Admin</h1>
+  <span>👋 Admin</span>
+</header>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <a href="#dashboard">📊 Dashboard</a>
+  <a href="#videos">🎥 Videos</a>
+  <a href="#comments">💬 Comments</a>
+  <a href="#featured">⭐ Featured</a>
+</div>
+
+<!-- Main Wrapper -->
+<div class="main">
+  <!-- Dashboard -->
+  <section id="dashboard">
+    <h2>Dashboard Overview</h2>
+    <div class="analytics">
+      <div class="card"><h4>Total Videos</h4><p id="stats-videos">0</p></div>
+      <div class="card"><h4>Total Views</h4><p id="stats-views">0</p></div>
+      <div class="card"><h4>Top Movie</h4><p id="stats-top">-</p></div>
+    </div>
+  </section>
+
+  <!-- Video Manager -->
+  <section id="videos">
+    <h2>Video Management</h2>
+    <button class="btn-add" onclick="openAddModal()">
+      <i class="fas fa-plus-circle"></i> Add Video
+    </button>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Title</th><th>TMDB</th><th>Type</th><th>S/E</th><th>Views</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="videoTable"></tbody>
+    </table>
+  </section>
+
+  <!-- Comments -->
+  <section id="comments">
+    <h2>Comments</h2>
+    <ul id="commentList"></ul>
+  </section>
+
+  <!-- Featured -->
+  <section id="featured">
+    <h2>Featured Movie</h2>
+    <p><strong>Auto Selected:</strong> <span id="featuredMovie">N/A</span></p>
+  </section>
+</div>
+
+<!-- Modal for Add -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Add New Video</h3>
+    <input type="text" id="idInput" placeholder="ID (auto)" readonly />
+    <input type="text" id="titleInput" placeholder="Title"/>
+    <input type="text" id="tmdbIdInput" placeholder="TMDB ID (e.g., 1078605)"/>
+    <input type="text" id="mediaTypeInput" placeholder="Media type (movie or tv)"/>
+    <input type="number" id="seasonInput" placeholder="Season (TV only)"/>
+    <input type="number" id="episodeInput" placeholder="Episode (TV only)"/>
+    <input type="text" id="posterInput" placeholder="Poster path (e.g., Thumbnails/poster.jpg)"/>
+    <input type="text" id="durationInput" placeholder="Duration (e.g., 2h 10m)"/>
+    <input type="text" id="yearInput" placeholder="Year (e.g., 2023)"/>
+    <input type="text" id="badgeInput" placeholder="Badge rating (e.g., 8.4)"/>
+    <input type="text" id="ratingScoreInput" placeholder="Rating score (e.g., 4.5)"/>
+    <input type="text" id="ratingCountInput" placeholder="Rating count (e.g., Based on 120K reviews)"/>
+    <input type="text" id="genresInput" placeholder="Genres (comma separated)"/>
+    <input type="text" id="descInput" placeholder="Short description"/>
+    <div class="modal-actions">
+      <button onclick="saveVideo()">Save</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="login-overlay" id="loginModal">
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <input id="loginUser" type="text" placeholder="Username"/>
+    <input id="loginPass" type="password" placeholder="Password"/>
+    <button onclick="validateLogin()">Login</button>
+    <p id="loginError" style="display:none;color:red;">Invalid credentials. Try again.</p>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Saved!</div>
+
+<!-- Go to Home Button -->
+<button onclick="goHome()" style="position:fixed;top:15px;right:120px;background:#e67e22;color:white;border:none;padding:8px 12px;border-radius:4px;cursor:pointer;z-index:9999;">
+  🏠 Go to Home
+</button>
+
+<script>
+  const API_URL = "api_movies.php";
+
+  const baseMovies = [
+    { title: "The Shawshank Redemption", poster: "Thumbnails/shawshank.jpg", duration: "2h 22m", video: "videos/The_Shawshank_Redemption.mp4" },
+    { title: "Oldboy", poster: "Thumbnails/oldboy.png", duration: "2h 0m", video: "videos/OLDBOY.mp4" },
+    { title: "Fight Club", poster: "Thumbnails/fightclub.jpg", duration: "2h 19m" },
+    { title: "The Godfather", poster: "Thumbnails/the godfather.png", duration: "2h 55m" },
+    { title: "The Dark Knight", poster: "Thumbnails/dark knight.jpg", duration: "2h 32m" },
+    { title: "The Lord Of The Rings", poster: "Thumbnails/lord of rings.jpg", duration: "3h 21m" },
+    { title: "Se7en", poster: "Thumbnails/seven.jpg", duration: "2h 7m" },
+    { title: "Whiplash", poster: "Thumbnails/whiplash.jpg", duration: "1h 45m" },
+    { title: "Eternal Sunshine of the Spotless Mind", poster: "Thumbnails/eternal.jfif", duration: "1h 48m" },
+    { title: "Stranger Things", poster: "Thumbnails/sci-fi.jpg", duration: "4 Seasons" },
+    { title: "Inception", poster: "Thumbnails/inception.jpg", duration: "2h 28m" },
+    { title: "500 Days of Summer", poster: "Thumbnails/500days.jpg", duration: "1h 35m" },
+    { title: "I Saw the Devil", poster: "Thumbnails/isaw.jpg", duration: "2h 21m" },
+    { title: "Final Destination", poster: "Thumbnails/final.jpg", duration: "1h 38m" },
+    { title: "Game Of Thrones", poster: "Thumbnails/got.jpg", duration: "8 Seasons" },
+    { title: "Sopranos", poster: "Thumbnails/sopranos.jpg", duration: "6 Seasons" },
+    { title: "Breaking Bad", poster: "Thumbnails/breaking.jpg", duration: "5 Seasons" },
+    { title: "Dexter", poster: "Thumbnails/dexter.jpg", duration: "8 Seasons" },
+    { title: "You", poster: "Thumbnails/you.jpg", duration: "4 Seasons" },
+    { title: "Memory", poster: "Thumbnails/memory.jpg", duration: "1h 53m" },
+    { title: "American Psycho", poster: "Thumbnails/psycho.jpg", duration: "1h 42m" },
+    { title: "Rom-Com Picks", poster: "Thumbnails/romcom.webp", duration: "1h 50m" }
+  ];
+
+  let videos = [];
+  let editIndex = null;
+
+  const user = "admin", pass = "123456";
+
+  const loginModal = document.getElementById("loginModal");
+  const loginError = document.getElementById("loginError");
+
+  if (!sessionStorage.getItem("isAdmin")) {
+    loginModal.style.display = "flex";
+  }
+
+  async function validateLogin() {
+    const u = document.getElementById("loginUser").value;
+    const p = document.getElementById("loginPass").value;
+    if (u === user && p === pass) {
+      sessionStorage.setItem("isAdmin", true);
+      loginModal.style.display = "none";
+      await updateUI();
+    } else {
+      loginError.style.display = "block";
+    }
+  }
+
+  function goHome() {
+    window.location.href = "index.php";
+  }
+  function ensureHttp() {
+    if (window.location.protocol === "file:") {
+      alert("Please open the admin page via http://localhost/... so the API can work.");
+      return false;
+    }
+    return true;
+  }
+
+  async function fetchMovies() {
+    if (!ensureHttp()) return [];
+    try {
+      const res = await fetch(`${API_URL}?action=list`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      return data.movies || [];
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to load movies", "error");
+      return [];
+    }
+  }
+
+
+  async function seedMoviesIfEmpty() {
+    if (videos.length) return;
+    for (const movie of baseMovies) {
+      await fetch(`${API_URL}?action=save`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(movie)
+      });
+    }
+    videos = await fetchMovies();
+  }
+
+  async function saveMovie(movie) {
+    if (!ensureHttp()) return { error: "offline" };
+    try {
+      const res = await fetch(`${API_URL}?action=save`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(movie)
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const result = await res.json();
+      if (result && result.error) {
+        const details = result.details ? `: ${result.details}` : "";
+        showToast(`${result.error}${details}`, "error");
+      }
+      return result;
+    } catch (err) {
+      console.error(err);
+      showToast("Save failed. Check API/DB.", "error");
+      return { error: "request_failed" };
+    }
+  }
+
+  async function deleteMovieById(id) {
+    if (!ensureHttp()) return { error: "offline" };
+    try {
+      const res = await fetch(`${API_URL}?action=delete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+      showToast("Delete failed. Check API/DB.", "error");
+      return { error: "request_failed" };
+    }
+  }
+
+  async function setFeaturedById(id) {
+    if (!ensureHttp()) return { error: "offline" };
+    try {
+      const res = await fetch(`${API_URL}?action=set_featured`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } catch (err) {
+      console.error(err);
+      showToast("Update failed. Check API/DB.", "error");
+      return { error: "request_failed" };
+    }
+  }
+
+
+  function renderVideos() {
+    const tbody = document.getElementById("videoTable");
+    tbody.innerHTML = '';
+    videos.forEach((v, i) => {
+      const tr = document.createElement('tr');
+      if (v.featured) tr.classList.add('featured-row');
+      const tmdbId = v.tmdb_id || v.tmdbId || '-';
+      const mediaType = (v.media_type || v.mediaType || 'movie').toString();
+      const season = v.season || '';
+      const episode = v.episode || '';
+      const seasonEpisode = mediaType.toLowerCase() === 'tv'
+        ? `${season || '-'} / ${episode || '-'}`
+        : '-';
+      tr.innerHTML = `
+        <td>${v.id || '-'}</td>
+        <td>${v.title}</td>
+        <td>${tmdbId || '-'}</td>
+        <td>${mediaType}</td>
+        <td>${seasonEpisode}</td>
+        <td>${v.views || 0}</td>
+        <td>
+          <button class="btn-edit" onclick="editVideo(${i})">âœï¸</button>
+          <button class="btn-del" onclick="deleteVideo(${i})">ðŸ—‘ï¸</button>
+          <button class="btn-feature" onclick="markFeatured(${i})">â­</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderStats() {
+    document.getElementById("stats-videos").textContent = videos.length;
+    const totalViews = videos.reduce((sum, v) => sum + (v.views || 0), 0);
+    document.getElementById("stats-views").textContent = totalViews;
+    if (videos.length) {
+      const top = videos.reduce((max, v) => (v.views || 0) > (max.views || 0) ? v : max, videos[0]);
+      document.getElementById("stats-top").textContent = top.title;
+      document.getElementById("featuredMovie").textContent = top.title;
+    } else {
+      document.getElementById("stats-top").textContent = "-";
+      document.getElementById("featuredMovie").textContent = "N/A";
+    }
+  }
+
+  function renderComments() {
+    const list = document.getElementById("commentList");
+    list.innerHTML = '';
+    const stored = localStorage.getItem("comments");
+    if (!stored) {
+      list.innerHTML = "<li>No comments yet.</li>";
+      return;
+    }
+    try {
+      const comments = JSON.parse(stored) || [];
+      if (!comments.length) {
+        list.innerHTML = "<li>No comments yet.</li>";
+        return;
+      }
+      comments.forEach(c => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${c.name}</strong>: ${c.text} <small>(${c.time})</small>`;
+        list.appendChild(li);
+      });
+    } catch (err) {
+      list.innerHTML = "<li>No comments yet.</li>";
+    }
+  }
+
+  async function openAddModal() {
+    document.getElementById("modal").style.display = 'flex';
+    document.getElementById("modalTitle").textContent = "Add New Video";
+    editIndex = null;
+  }
+
+  function closeModal() {
+    document.getElementById("modal").style.display = 'none';
+    document.getElementById("titleInput").value = '';
+    document.getElementById("tmdbIdInput").value = '';
+    document.getElementById("mediaTypeInput").value = '';
+    document.getElementById("seasonInput").value = '';
+    document.getElementById("episodeInput").value = '';
+    document.getElementById("posterInput").value = '';
+    document.getElementById("durationInput").value = '';
+    document.getElementById("yearInput").value = '';
+    document.getElementById("badgeInput").value = '';
+    document.getElementById("ratingScoreInput").value = '';
+    document.getElementById("ratingCountInput").value = '';
+    document.getElementById("genresInput").value = '';
+    document.getElementById("descInput").value = '';
+  }
+
+  async function openEditModal(index) {
+    const video = videos[index];
+    if (!video) return;
+    editIndex = index;
+    document.getElementById("modalTitle").textContent = "Edit Video";
+    document.getElementById("idInput").value = video.id || '';
+    document.getElementById("titleInput").value = video.title || '';
+    document.getElementById("tmdbIdInput").value = video.tmdb_id || video.tmdbId || '';
+    document.getElementById("mediaTypeInput").value = video.media_type || video.mediaType || '';
+    document.getElementById("seasonInput").value = video.season || '';
+    document.getElementById("episodeInput").value = video.episode || '';
+    document.getElementById("posterInput").value = video.poster || '';
+    document.getElementById("durationInput").value = video.duration || '';
+    document.getElementById("yearInput").value = video.year || '';
+    document.getElementById("badgeInput").value = video.badge_rating || video.badgeRating || '';
+    document.getElementById("ratingScoreInput").value = video.rating_score || video.ratingScore || '';
+    document.getElementById("ratingCountInput").value = video.rating_count || video.ratingCount || '';
+    document.getElementById("genresInput").value = Array.isArray(video.genres) ? video.genres.join(", ") : (video.genres || '');
+    document.getElementById("descInput").value = video.description || '';
+    document.getElementById("modal").style.display = 'flex';
+  }
+
+  async function saveVideo() {
+    if (!ensureHttp()) return;
+    const title = document.getElementById("titleInput").value.trim();
+    const tmdbId = document.getElementById("tmdbIdInput").value.trim();
+    const mediaTypeRaw = document.getElementById("mediaTypeInput").value.trim();
+    const seasonRaw = document.getElementById("seasonInput").value.trim();
+    const episodeRaw = document.getElementById("episodeInput").value.trim();
+    const poster = document.getElementById("posterInput").value.trim();
+    const duration = document.getElementById("durationInput").value.trim();
+    const year = document.getElementById("yearInput").value.trim();
+    const badgeRating = document.getElementById("badgeInput").value.trim();
+    const ratingScore = document.getElementById("ratingScoreInput").value.trim();
+    const ratingCount = document.getElementById("ratingCountInput").value.trim();
+    const genresInput = document.getElementById("genresInput").value.trim();
+    const description = document.getElementById("descInput").value.trim();
+
+    if (!title) return alert("Title is required.");
+    if (!poster) return alert("Poster path is required.");
+
+    const mediaType = mediaTypeRaw ? mediaTypeRaw.toLowerCase() : "movie";
+    const season = seasonRaw ? parseInt(seasonRaw, 10) : null;
+    const episode = episodeRaw ? parseInt(episodeRaw, 10) : null;
+
+    const movie = {
+      title,
+      tmdb_id: tmdbId || "",
+      media_type: mediaType,
+      season: Number.isFinite(season) ? season : null,
+      episode: Number.isFinite(episode) ? episode : null,
+      video: "",
+      poster,
+      duration: duration || "2h 0m",
+      year: year || "2024",
+      badge_rating: badgeRating || "8.0",
+      rating_score: ratingScore || "4.0",
+      rating_count: ratingCount || "Based on 100K reviews",
+      description: description || "No description available yet.",
+      genres: genresInput ? genresInput.split(",").map(g => g.trim()).filter(Boolean) : ["Drama"]
+    };
+
+    if (editIndex !== null) {
+      movie.id = videos[editIndex].id;
+    }
+
+    const result = await saveMovie(movie);
+    if (result && result.error) return;
+    showToast(editIndex !== null ? "Video updated" : "Video added");
+    closeModal();
+    await updateUI();
+  }
+
+  function editVideo(index) {
+    openEditModal(index);
+  }
+
+  async function deleteVideo(index) {
+    if (!confirm("Delete this video?")) return;
+    const movie = videos[index];
+    if (!movie || !movie.id) return;
+    await deleteMovieById(movie.id);
+    showToast("Video deleted");
+    await updateUI();
+  }
+
+  async function markFeatured(index) {
+    const movie = videos[index];
+    if (!movie || !movie.id) return;
+    await setFeaturedById(movie.id);
+    showToast(`'${movie.title}' marked as Featured`);
+    await updateUI();
+  }
+
+  function deleteComment(vid, cid) {
+    videos[vid].comments.splice(cid, 1);
+    showToast("Comment removed"); renderComments();
+  }
+
+  function showToast(msg, type = "success") {
+    const toast = document.getElementById("toast");
+    toast.innerText = msg;
+    toast.style.background = type === "error" ? "#e74c3c" : "";
+    toast.style.display = "block";
+    setTimeout(() => toast.style.display = "none", 3000);
+  }
+
+  async function updateUI() {
+    videos = await fetchMovies();
+    await seedMoviesIfEmpty();
+    renderVideos();
+    renderStats();
+    renderComments();
+  }
+
+  if (sessionStorage.getItem("isAdmin")) {
+    updateUI();
+  }
+</script>
+
+</body>
+</html>
+
+
+
+
+

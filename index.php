@@ -695,16 +695,37 @@ $isLoggedIn = isset($_SESSION['user_id']);
       color: white;
       text-transform: uppercase;
     }
-
     .movie-info {
-      padding: 18px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 14px 12px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 8, 10, 0.88) 45%, rgba(8, 8, 10, 0.98) 100%);
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.32s ease, opacity 0.32s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .movie-card:hover .movie-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    
+    @media (hover: none) {
+      .movie-info {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .movie-title {
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -714,7 +735,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
     }
 
     .movie-rating i {
@@ -726,43 +747,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
     }
 
     /* Quick Action Buttons on Cards */
-    .card-actions {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      opacity: 0;
-      transform: translateX(20px);
-      transition: all 0.3s ease;
-    }
-
-    .movie-card:hover .card-actions {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .card-action-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .card-action-btn:hover {
-      background: var(--primary);
-      transform: scale(1.1);
-    }
     /* Divider */
     .divider {
       height: 1px;
@@ -824,7 +808,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
       <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
       <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-      <li><a href="contact.html"><i class="bi bi-headset"></i> <span>Support</span></a></li>
+      <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
       <?php if ($isLoggedIn): ?>
         <li><a href="logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
       <?php else: ?>
@@ -1058,10 +1042,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">1h 48min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Eternal Sunshine of the Spotless Mind</h5>
@@ -1081,10 +1061,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">4 Seasons</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Stranger Things</h5>
@@ -1103,10 +1079,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 28min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Inception</h5>
@@ -1125,10 +1097,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">1h 35min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">500 Days of Summer</h5>
@@ -1148,10 +1116,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 0min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Oldboy</h5>
@@ -1171,10 +1135,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 21min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">I Saw the Devil</h5>
@@ -1213,10 +1173,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">1h 38min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Final Destination</h5>
@@ -1236,10 +1192,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">8 Seasons</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Game Of Thrones</h5>
@@ -1259,10 +1211,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">6 Seasons</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">The Sopranos</h5>
@@ -1282,10 +1230,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">5 Seasons</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Breaking Bad</h5>
@@ -1304,10 +1248,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">8 Seasons</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Dexter</h5>
@@ -1327,10 +1267,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">4 Seasons</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">You</h5>
@@ -1438,24 +1374,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     document.querySelectorAll('.movie-card, .genre-card').forEach(card => {
       observer.observe(card);
-    });
-
-    // Card like button functionality
-    document.querySelectorAll('.card-action-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const icon = btn.querySelector('i');
-        if (icon.classList.contains('bi-heart')) {
-          icon.classList.remove('bi-heart');
-          icon.classList.add('bi-heart-fill');
-          icon.style.color = '#ef4444';
-        } else if (icon.classList.contains('bi-heart-fill')) {
-          icon.classList.remove('bi-heart-fill');
-          icon.classList.add('bi-heart');
-          icon.style.color = '';
-        }
-      });
     });
 
     // Wire carousel buttons
@@ -1695,10 +1613,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <div class="play-btn"><i class="bi bi-play-fill"></i></div>
           </div>
           <div class="movie-duration">${duration}</div>
-          <div class="card-actions">
-            <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-            <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-          </div>
         </div>
         <div class="movie-info">
           <h5 class="movie-title">${title}</h5>
@@ -1719,6 +1633,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
 </body>
 
 </html>
+
+
+
+
+
+
 
 
 

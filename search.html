@@ -232,54 +232,37 @@
     .movie-card:hover .movie-duration {
       opacity: 1;
     }
-
-    .card-actions {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      opacity: 0;
-      transform: translateX(20px);
-      transition: all 0.3s ease;
-    }
-
-    .movie-card:hover .card-actions {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .card-action-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .card-action-btn:hover {
-      background: var(--primary);
-      transform: scale(1.1);
-    }
-
     .movie-info {
-      padding: 18px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 14px 12px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 8, 10, 0.88) 45%, rgba(8, 8, 10, 0.98) 100%);
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.32s ease, opacity 0.32s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .movie-card:hover .movie-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    
+    @media (hover: none) {
+      .movie-info {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .movie-title {
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -289,7 +272,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
     }
 
     .movie-rating i {
@@ -309,6 +292,14 @@
     #searchResults .movie-card {
       transition: all 0.3s ease-in-out;
     }
+
+    #searchResults {
+      transition: opacity 0.2s ease;
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -326,7 +317,7 @@
     <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
     <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
     <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="contact.html"><i class="bi bi-headset"></i> <span>Support</span></a></li>
+    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <li><a href="login.php"><i class="bi bi-person-circle"></i> <span>Account</span></a></li>
   </ul>
 </nav>
@@ -341,7 +332,7 @@
   </div>
 
   <!-- anime cards section-->
- <section>
+ <section id="mightLikeSection">
   
   <div class="container my-5">
   <div class="row g-4 justify-content-center">
@@ -356,10 +347,6 @@
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 30min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Eternal Sunshine of the Spotless Mind</h5>
@@ -374,15 +361,11 @@
       <a href="player.html?title=Stranger%20Things" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Thumbnails/sci-fi.jpg" alt="Stranger Things">
+            <img src="Genere/sci-fi.jpg" alt="Stranger Things">
             <div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 30min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Stranger Things</h5>
@@ -397,15 +380,11 @@
       <a href="player.html?title=Inception" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Thumbnails/inception.jpg" alt="Inception">
+            <img src="Movies/inception.jpg" alt="Inception">
             <div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 12min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Inception</h5>
@@ -420,15 +399,11 @@
       <a href="player.html?title=500%20Days%20of%20Summer" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Thumbnails/500days.jpg" alt="500 Days of Summer">
+            <img src="Movies/500days.jpg" alt="500 Days of Summer">
             <div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 32min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">500 Days of Summer</h5>
@@ -443,15 +418,11 @@
       <a href="player.html?title=Oldboy" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Thumbnails/oldboy.png" alt="Oldboy">
+            <img src="Movies/oldboy.png" alt="Oldboy">
             <div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 1min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">Oldboy</h5>
@@ -466,15 +437,11 @@
       <a href="player.html?title=I%20Saw%20the%20Devil" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Thumbnails/isaw.jpg" alt="I Saw the Devil">
+            <img src="Movies/isaw.jpg" alt="I Saw the Devil">
             <div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">1h 45min</div>
-            <div class="card-actions">
-              <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-              <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">I Saw the Devil</h5>
@@ -533,35 +500,56 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   const baseMovies = [
-  { title: "Memories of Murder", image: "Thumbnails/memory.jpg", duration: "2h 12min" },
-  { title: "Fight Club", image: "Thumbnails/fightclub.jpg", duration: "2h 19min" },
-  { title: "The Shawshank Redemption", image: "Thumbnails/shawshank.jpg", duration: "2h 22min" },
-  { title: "Inception", image: "Thumbnails/inception.jpg", duration: "2h 28min" },
-  { title: "The Dark Knight", image: "Thumbnails/dark knight.jpg", duration: "2h 32min" },
-  { title: "The Godfather", image: "Thumbnails/the godfather.png", duration: "2h 55min" },
-  { title: "The Lord Of The Rings", image: "Thumbnails/lord of rings.jpg", duration: "3h 21min" },
-  { title: "Se7en", image: "Thumbnails/seven.jpg", duration: "2h 7min" },
-  { title: "Whiplash", image: "Thumbnails/whiplash.jpg", duration: "1h 45min" },
-  { title: "Eternal Sunshine of the Spotless Mind", image: "Thumbnails/eternal.jfif", duration: "1h 48min" },
-  { title: "Stranger Things", image: "Thumbnails/sci-fi.jpg", duration: "4 Seasons" },
-  { title: "500 Days of Summer", image: "Thumbnails/500days.jpg", duration: "1h 35min" },
-  { title: "Oldboy", image: "Thumbnails/oldboy.png", duration: "2h 0min" },
-  { title: "I Saw the Devil", image: "Thumbnails/isaw.jpg", duration: "2h 21min" },
-  { title: "Final Destination", image: "Thumbnails/final.jpg", duration: "1h 38min" },
-  { title: "Game Of Thrones", image: "Thumbnails/got.jpg", duration: "8 Seasons" },
-  { title: "Sopranos", image: "Thumbnails/sopranos.jpg", duration: "6 Seasons" },
-  { title: "Breaking Bad", image: "Thumbnails/breaking.jpg", duration: "5 Seasons" },
-  { title: "Dexter", image: "Thumbnails/dexter.jpg", duration: "8 Seasons" },
-  { title: "You", image: "Thumbnails/you.jpg", duration: "4 Seasons" },
-  { title: "Memory", image: "Thumbnails/memory.jpg", duration: "1h 53min" },
-  { title: "American Psycho", image: "Thumbnails/psycho.jpg", duration: "1h 42min" },
-  { title: "Rom-Com Picks", image: "Thumbnails/romcom.webp", duration: "1h 50min" }
+  { title: "Memories of Murder", image: "Movies/memory.jpg", duration: "2h 12min" },
+  { title: "Fight Club", image: "Movies/fightclub.jpg", duration: "2h 19min" },
+  { title: "The Shawshank Redemption", image: "Movies/shawshank.jpg", duration: "2h 22min" },
+  { title: "Inception", image: "Movies/inception.jpg", duration: "2h 28min" },
+  { title: "The Dark Knight", image: "Movies/dark knight.jpg", duration: "2h 32min" },
+  { title: "The Godfather", image: "Movies/the godfather.png", duration: "2h 55min" },
+  { title: "The Lord Of The Rings", image: "WebSeries/lord of rings.jpg", duration: "3h 21min" },
+  { title: "Se7en", image: "Movies/seven.jpg", duration: "2h 7min" },
+  { title: "Whiplash", image: "Movies/whiplash.jpg", duration: "1h 45min" },
+  { title: "Eternal Sunshine of the Spotless Mind", image: "Movies/eternal.jfif", duration: "1h 48min" },
+  { title: "Stranger Things", image: "Genere/sci-fi.jpg", duration: "4 Seasons" },
+  { title: "500 Days of Summer", image: "Movies/500days.jpg", duration: "1h 35min" },
+  { title: "Oldboy", image: "Movies/oldboy.png", duration: "2h 0min" },
+  { title: "I Saw the Devil", image: "Movies/isaw.jpg", duration: "2h 21min" },
+  { title: "Final Destination", image: "Movies/final.jpg", duration: "1h 38min" },
+  { title: "Game Of Thrones", image: "WebSeries/got.jpg", duration: "8 Seasons" },
+  { title: "Sopranos", image: "WebSeries/sopranos.jpg", duration: "6 Seasons" },
+  { title: "Breaking Bad", image: "WebSeries/breaking.jpg", duration: "5 Seasons" },
+  { title: "Dexter", image: "WebSeries/dexter.jpg", duration: "8 Seasons" },
+  { title: "You", image: "WebSeries/you.jpg", duration: "4 Seasons" },
+  { title: "Memory", image: "Movies/memory.jpg", duration: "1h 53min" },
+  { title: "American Psycho", image: "Genere/psycho.jpg", duration: "1h 42min" },
+  { title: "Rom-Com Picks", image: "Genere/romcom.webp", duration: "1h 50min" }
   ];
 
   const API_URL = "api_movies.php";
+  const DEFAULT_POSTER = "Movies/fightclub.jpg";
+  const WEB_SERIES_POSTERS = new Set(["breaking.jpg", "dexter.jpg", "got.jpg", "lord of rings.jpg", "sopranos.jpg", "you.jpg"]);
+  const GENERE_POSTERS = new Set(["action.jpg", "adventure.webp", "comedy.jpg", "psycho.jpg", "romcom.webp", "sci-fi.jpg"]);
 
   function normalizeTitle(value) {
     return (value || "").trim().toLowerCase();
+  }
+
+  function resolvePosterPath(posterPath) {
+    const raw = (posterPath || "").toString().trim().replace(/\\/g, "/");
+    if (!raw) return DEFAULT_POSTER;
+    const lower = raw.toLowerCase();
+    if (lower.startsWith("http://") || lower.startsWith("https://") || lower.startsWith("data:")) {
+      return raw;
+    }
+    if (!lower.startsWith("thumbnails/")) {
+      return raw;
+    }
+    const filename = raw.split("/").pop();
+    const fileKey = (filename || "").toLowerCase();
+    if (!filename) return DEFAULT_POSTER;
+    if (WEB_SERIES_POSTERS.has(fileKey)) return `WebSeries/${filename}`;
+    if (GENERE_POSTERS.has(fileKey)) return `Genere/${filename}`;
+    return `Movies/${filename}`;
   }
 
   let movies = [...baseMovies];
@@ -594,7 +582,7 @@
         });
         return {
           title: merged.title || item.title,
-          image: merged.image || base.image || "Thumbnails/fightclub.jpg",
+          image: resolvePosterPath(merged.image || base.image || DEFAULT_POSTER),
           duration: merged.duration || base.duration || "2h 0m"
         };
       });
@@ -612,6 +600,7 @@
   loadMovies();
 
   const searchInput = document.getElementById("mainSearchInput");
+  const mightLikeSection = document.getElementById("mightLikeSection");
 
   function buildPlayerUrl({ title, tmdbId, mediaType, season, episode } = {}) {
     const cleanTmdb = (tmdbId || "").toString().trim();
@@ -640,35 +629,50 @@
   resultContainer.className = "container my-4";
   resultContainer.id = "searchResults";
   searchInput.closest(".search-container").after(resultContainer);
+  resultContainer.classList.add("is-hidden");
 
-  searchInput.addEventListener("input", function () {
-    const query = searchInput.value.trim().toLowerCase();
+  function setSearchState({ showResults, showMightLike }) {
+    resultContainer.classList.toggle("is-hidden", !showResults);
+    if (mightLikeSection) {
+      mightLikeSection.classList.toggle("is-hidden", !showMightLike);
+    }
+  }
+
+  function renderSearchResults(query) {
+    const cleanQuery = (query || "").trim().toLowerCase();
     resultContainer.innerHTML = "";
 
-    if (!query) return;
+    if (!cleanQuery) {
+      setSearchState({ showResults: false, showMightLike: true });
+      return;
+    }
 
     const filtered = movies.filter(movie =>
-      movie.title.toLowerCase().includes(query)
+      (movie.title || "").toLowerCase().includes(cleanQuery)
     );
 
     if (filtered.length === 0) {
       resultContainer.innerHTML = `
-        <h4 class="text-light text-center">No results found for "<span style="color:#e50914;">${query}</span>"</h4>
+        <h4 class="text-light text-center">No results found for "<span style="color:#e50914;">${cleanQuery}</span>"</h4>
       `;
+      setSearchState({ showResults: true, showMightLike: true });
       return;
     }
+
+    const MAX_SEARCH_RESULTS = 12;
+    const visibleResults = filtered.slice(0, MAX_SEARCH_RESULTS);
 
     let output = `
       <h3 class="section-heading">Search Results</h3>
       <div class="row g-4 justify-content-center">
     `;
 
-    filtered.forEach(movie => {
+    visibleResults.forEach(movie => {
       const tmdbId = movie.tmdb_id || movie.tmdbId || '';
       const mediaType = movie.media_type || movie.mediaType || 'movie';
       const season = movie.season || '';
       const episode = movie.episode || '';
-      const poster = movie.poster || movie.image || '';
+      const poster = resolvePosterPath(movie.poster || movie.image || DEFAULT_POSTER);
       const href = buildPlayerUrl({
         title: movie.title,
         tmdbId,
@@ -681,15 +685,11 @@
           <a href="${href}" class="text-decoration-none" data-tmdb-id="${tmdbId}" data-media-type="${mediaType}" data-season="${season}" data-episode="${episode}">
             <div class="movie-card">
               <div class="movie-poster">
-                <img src="${poster}" alt="${movie.title}">
+                <img src="${poster}" alt="${movie.title}" onerror="this.onerror=null;this.src='Movies/fightclub.jpg';">
                 <div class="movie-overlay">
                   <div class="play-btn"><i class="bi bi-play-fill"></i></div>
                 </div>
                 <div class="movie-duration">${movie.duration || ""}</div>
-                <div class="card-actions">
-                  <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-                  <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-                </div>
               </div>
               <div class="movie-info">
                 <h5 class="movie-title">${movie.title}</h5>
@@ -705,7 +705,20 @@
     });
 
     output += `</div>`;
+    if (filtered.length > MAX_SEARCH_RESULTS) {
+      output += `
+        <p class="text-center text-secondary mt-3">Showing first ${MAX_SEARCH_RESULTS} results</p>
+      `;
+    }
     resultContainer.innerHTML = output;
+    setSearchState({ showResults: true, showMightLike: false });
+  }
+
+  let searchDebounceTimer = null;
+  searchInput.addEventListener("input", function () {
+    clearTimeout(searchDebounceTimer);
+    const value = searchInput.value;
+    searchDebounceTimer = setTimeout(() => renderSearchResults(value), 120);
   });
 
   // Make static cards clickable
@@ -727,9 +740,16 @@
         episode
       });
     });
-  });</script>
+  });
+</script>
 </body>
 </html> 
+
+
+
+
+
+
 
 
 

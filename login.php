@@ -206,7 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
     <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
     <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="contact.html"><i class="bi bi-headset"></i> <span>Support</span></a></li>
+    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <?php if ($isLoggedIn): ?>
       <li><a href="logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
     <?php else: ?>
@@ -307,6 +307,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </body>
 
 </html>
+
 
 
 

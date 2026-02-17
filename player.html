@@ -1177,7 +1177,7 @@
     <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
     <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
     <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="contact.html"><i class="bi bi-headset"></i> <span>Support</span></a></li>
+    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <li><a href="login.php"><i class="bi bi-person-circle"></i> <span>Account</span></a></li>
   </ul>
 </nav>
@@ -2202,20 +2202,81 @@
     }, 3000);
   }
 
-  // Toggle like button
-  function toggleLike(btn) {
-    btn.classList.toggle('liked');
-    const icon = btn.querySelector('i');
-    const span = btn.querySelector('span');
-    
-    if (btn.classList.contains('liked')) {
-      icon.className = 'bi bi-heart-fill';
-      span.textContent = 'Liked';
-      showToast('Added to your favorites!');
-    } else {
-      icon.className = 'bi bi-heart';
-      span.textContent = 'Like';
-      showToast('Removed from favorites');
+  function inferMediaTypeForWatchLater(movie) {
+    const explicit = (movie?.media_type || movie?.mediaType || "").toString().toLowerCase();
+    if (explicit === "tv" || explicit === "movie") return explicit;
+    const poster = (movie?.poster || "").toString().toLowerCase();
+    const duration = (movie?.duration || "").toString().toLowerCase();
+    if (poster.startsWith("webseries/") || duration.includes("season")) return "tv";
+    return "movie";
+  }
+
+  function getCurrentWatchLaterPayload() {
+    return {
+      title: currentMovie?.title || "",
+      tmdb_id: currentMovie?.tmdb_id || currentMovie?.tmdbId || "",
+      media_type: inferMediaTypeForWatchLater(currentMovie),
+      season: currentMovie?.season || 0,
+      episode: currentMovie?.episode || 0,
+      poster: currentMovie?.poster || "Movies/fightclub.jpg",
+      duration: currentMovie?.duration || "",
+      year: currentMovie?.year || "",
+      badge_rating: currentMovie?.badgeRating || currentMovie?.badge_rating || "",
+      rating_score: currentMovie?.ratingScore || currentMovie?.rating_score || ""
+    };
+  }
+
+  function syncLikeButtonState(saved) {
+    const btn = document.querySelector(".action-btn.primary");
+    if (!btn) return;
+    const icon = btn.querySelector("i");
+    const span = btn.querySelector("span");
+    btn.classList.toggle("liked", !!saved);
+    if (icon) icon.className = saved ? "bi bi-heart-fill" : "bi bi-heart";
+    if (span) span.textContent = saved ? "Liked" : "Like";
+  }
+
+  async function refreshLikeStatus() {
+    const payload = getCurrentWatchLaterPayload();
+    if (!payload.title) {
+      syncLikeButtonState(false);
+      return;
+    }
+    try {
+      const res = await fetch(`${API_URL}?action=watch_later_status&title=${encodeURIComponent(payload.title)}&media_type=${encodeURIComponent(payload.media_type)}&season=${encodeURIComponent(payload.season || 0)}&episode=${encodeURIComponent(payload.episode || 0)}`);
+      const data = await res.json();
+      syncLikeButtonState(!!data.saved && !!data.logged_in);
+    } catch (err) {
+      syncLikeButtonState(false);
+    }
+  }
+
+  async function toggleLike(btn) {
+    const payload = getCurrentWatchLaterPayload();
+    if (!payload.title) return;
+    try {
+      const statusRes = await fetch(`${API_URL}?action=watch_later_status&title=${encodeURIComponent(payload.title)}&media_type=${encodeURIComponent(payload.media_type)}&season=${encodeURIComponent(payload.season || 0)}&episode=${encodeURIComponent(payload.episode || 0)}`);
+      const statusData = await statusRes.json();
+      if (!statusData.logged_in) {
+        window.location.href = "login.php";
+        return;
+      }
+      const action = statusData.saved ? "watch_later_remove" : "watch_later_add";
+      const res = await fetch(`${API_URL}?action=${action}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      const saved = !!data.saved;
+      syncLikeButtonState(saved);
+      showToast(saved ? "Added to Watch Later" : "Removed from Watch Later");
+    } catch (err) {
+      showToast(err.message || "Unable to update Watch Later", "error");
     }
   }
 
@@ -2418,6 +2479,7 @@
     });
 
     await initMoviePage();
+    await refreshLikeStatus();
     await loadRecommendations(currentMovie, urlParams);
 
     const movieEmbed = buildEmbedConfig({
@@ -2537,6 +2599,7 @@
 </script>
 </body>
 </html>
+
 
 
 

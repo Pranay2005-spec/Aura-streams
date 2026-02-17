@@ -192,54 +192,37 @@
     .movie-card:hover .movie-duration {
       opacity: 1;
     }
-
-    .card-actions {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      opacity: 0;
-      transform: translateX(20px);
-      transition: all 0.3s ease;
-    }
-
-    .movie-card:hover .card-actions {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .card-action-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .card-action-btn:hover {
-      background: var(--primary);
-      transform: scale(1.1);
-    }
-
     .movie-info {
-      padding: 18px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 14px 12px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 8, 10, 0.88) 45%, rgba(8, 8, 10, 0.98) 100%);
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.32s ease, opacity 0.32s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .movie-card:hover .movie-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    
+    @media (hover: none) {
+      .movie-info {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .movie-title {
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -249,7 +232,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
     }
 
     .movie-rating i {
@@ -284,7 +267,7 @@
     <li><a href="genere.html?genre=top-rated" class="active"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
     <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
     <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="contact.html"><i class="bi bi-headset"></i> <span>Support</span></a></li>
+    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <li><a href="login.php"><i class="bi bi-person-circle"></i> <span>Account</span></a></li>
   </ul>
 </nav>
@@ -431,6 +414,29 @@
   titleEl.textContent = `${genreTitle} Movies`;
 
   const grid = document.getElementById("genreGrid");
+  const API_URL = "api_movies.php";
+  const DEFAULT_POSTER = "Movies/fightclub.jpg";
+  const WEB_SERIES_POSTERS = new Set(["breaking.jpg", "dexter.jpg", "got.jpg", "lord of rings.jpg", "sopranos.jpg", "you.jpg"]);
+  const GENERE_POSTERS = new Set(["action.jpg", "adventure.webp", "comedy.jpg", "psycho.jpg", "romcom.webp", "sci-fi.jpg"]);
+
+  function resolvePosterPath(posterPath) {
+    const raw = (posterPath || "").toString().trim().replace(/\\/g, "/");
+    if (!raw) return DEFAULT_POSTER;
+    const lower = raw.toLowerCase();
+    if (lower.startsWith("http://") || lower.startsWith("https://") || lower.startsWith("data:")) {
+      return raw;
+    }
+    if (!lower.startsWith("thumbnails/")) {
+      return raw;
+    }
+    const filename = raw.split("/").pop();
+    const fileKey = (filename || "").toLowerCase();
+    if (!filename) return DEFAULT_POSTER;
+    if (WEB_SERIES_POSTERS.has(fileKey)) return `WebSeries/${filename}`;
+    if (GENERE_POSTERS.has(fileKey)) return `Genere/${filename}`;
+    return `Movies/${filename}`;
+  }
+
   function buildPlayerUrl({ title, tmdbId, mediaType, season, episode } = {}) {
     const cleanTmdb = (tmdbId || "").toString().trim();
     const type = (mediaType || "movie").toString().trim().toLowerCase();
@@ -455,7 +461,7 @@
 
   async function fetchApiMovies() {
     try {
-      const res = await fetch("api_movies.php?action=list");
+      const res = await fetch(`${API_URL}?action=list`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       return data.movies || [];
@@ -488,7 +494,7 @@
         season,
         episode
       });
-      const poster = item.poster || item.image || "";
+      const poster = resolvePosterPath(item.poster || item.image || DEFAULT_POSTER);
       const duration = item.duration || "";
       const rating = item.rating_score || item.ratingScore || item.rating || "4.0";
       return `
@@ -496,15 +502,11 @@
           <a href="${href}" class="text-decoration-none" data-tmdb-id="${tmdbId}" data-media-type="${mediaType}" data-season="${season}" data-episode="${episode}">
             <div class="movie-card">
               <div class="movie-poster">
-                <img src="${poster}" alt="${item.title}">
+                <img src="${poster}" alt="${item.title}" onerror="this.onerror=null;this.src='Movies/fightclub.jpg';">
                 <div class="movie-overlay">
                   <div class="play-btn"><i class="bi bi-play-fill"></i></div>
                 </div>
                 <div class="movie-duration">${duration}</div>
-                <div class="card-actions">
-                  <button class="card-action-btn"><i class="bi bi-heart"></i></button>
-                  <button class="card-action-btn"><i class="bi bi-plus"></i></button>
-                </div>
               </div>
               <div class="movie-info">
                 <h5 class="movie-title">${item.title}</h5>
@@ -524,6 +526,12 @@
 </script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 

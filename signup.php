@@ -1,17 +1,41 @@
 <?php
 include "database.php";
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+
+function is_strong_password($password) {
+    if (strlen($password) < 8) return false;
+    if (!preg_match('/[A-Za-z]/', $password)) return false;
+    if (!preg_match('/\d/', $password)) return false;
+    if (!preg_match('/[^A-Za-z0-9]/', $password)) return false;
+    return true;
+}
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // GET VALUES FROM FORM (match names correctly)
-    $username = $_POST['name'];
-    $email = $_POST['signupEmail'];
-    $password = $_POST['signupPassword'];
-    $confirmPassword = $_POST['confirmPassword'];
+    $username = trim($_POST['name'] ?? '');
+    $email = trim($_POST['signupEmail'] ?? '');
+    $password = (string)($_POST['signupPassword'] ?? '');
+    $confirmPassword = (string)($_POST['confirmPassword'] ?? '');
+
+    if ($username === '' || $email === '' || $password === '' || $confirmPassword === '') {
+        echo "<script>alert('All fields are required'); window.location='signup.php';</script>";
+        exit();
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "<script>alert('Please enter a valid email address'); window.location='signup.php';</script>";
+        exit();
+    }
 
     // Check password match
     if ($password !== $confirmPassword) {
         echo "<script>alert('Passwords do not match'); window.location='signup.php';</script>";
+        exit();
+    }
+
+    if (!is_strong_password($password)) {
+        echo "<script>alert('Password must be at least 8 characters and include letters, numbers, and a special character'); window.location='signup.php';</script>";
         exit();
     }
 
@@ -20,6 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Check if email already exists
     $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    if (!$check) {
+        echo "<script>alert('Server error. Please try again.'); window.location='signup.php';</script>";
+        exit();
+    }
     $check->bind_param("s", $email);
     $check->execute();
     $checkResult = $check->get_result();
@@ -31,6 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // INSERT USER SAFELY
     $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+    if (!$stmt) {
+        echo "<script>alert('Server error. Please try again.'); window.location='signup.php';</script>";
+        exit();
+    }
     $stmt->bind_param("sss", $username, $email, $hashedPassword);
 
     if ($stmt->execute()) {
@@ -208,7 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
     <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
     <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="contact.html"><i class="bi bi-headset"></i> <span>Support</span></a></li>
+    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <?php if ($isLoggedIn): ?>
       <li><a href="logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
     <?php else: ?>
@@ -235,12 +267,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       <div class="mb-3">
         <label for="signupPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="signupPassword" name="signupPassword" placeholder="Create a password">
+        <input type="password" class="form-control" id="signupPassword" name="signupPassword" placeholder="Create a password" minlength="8" autocomplete="new-password">
+        <small class="text-secondary">Use at least 8 characters with letters, numbers, and one special character.</small>
       </div>
 
       <div class="mb-3">
         <label for="confirmPassword" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password">
+        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" minlength="8" autocomplete="new-password">
       </div>
 
       <button type="submit" class="btn-login">Sign Up</button>
@@ -281,6 +314,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       return re.test(email.toLowerCase());
     }
 
+    function isStrongPassword(password) {
+      if (password.length < 8) return false;
+      if (!/[A-Za-z]/.test(password)) return false;
+      if (!/\d/.test(password)) return false;
+      if (!/[^A-Za-z0-9]/.test(password)) return false;
+      return true;
+    }
+
     form.addEventListener('submit', function (e) {
       let valid = true;
 
@@ -303,8 +344,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       }
 
       // Password
-      if (passwordInput.value.length < 6) {
-        showError(passwordInput, 'Password must be at least 6 characters.');
+      if (!isStrongPassword(passwordInput.value)) {
+        showError(passwordInput, 'Min 8 chars with letters, numbers, and a special character.');
         valid = false;
       }
 
@@ -323,6 +364,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </main>
 </body>
 </html>
+
 
 
 

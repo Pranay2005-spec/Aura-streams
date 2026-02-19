@@ -18,8 +18,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sidebar.css">
-  <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="css/sidebar.css?v=8">
+  <link rel="stylesheet" href="css/footer.css?v=8">
 
   <style>
     :root {
@@ -280,7 +280,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       }
 
       #animeHeroCarousel .carousel-item {
-        height: 70vh;
+        height: 56vh;
       }
     }
 
@@ -349,7 +349,28 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     @media (max-width: 576px) {
       .genre-grid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 0 2px 8px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .genre-grid .genre-card {
+        flex: 0 0 clamp(110px, 30vw, 140px);
+        max-width: none;
+        scroll-snap-align: start;
+        border-radius: 12px;
+      }
+
+      .genre-img {
+        height: 120px;
+      }
+
+      .genre-label {
+        padding: 7px 6px;
+        font-size: 0.72rem;
       }
     }
 
@@ -547,16 +568,85 @@ $isLoggedIn = isset($_SESSION['user_id']);
     @media (max-width: 768px) {
       .featured-content {
         flex-direction: column;
-        padding: 40px 25px;
+        padding: 24px 16px;
         text-align: center;
       }
 
       .featured-title {
-        font-size: 2rem;
+        font-size: 1.45rem;
+        margin-bottom: 10px;
+      }
+
+      .featured-desc {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 16px;
       }
 
       .featured-stats {
         justify-content: center;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      .stat-value {
+        font-size: 1.1rem;
+      }
+
+      .btn-play-featured {
+        padding: 12px 22px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .featured-section {
+        border-radius: 16px;
+        margin: 18px 0;
+      }
+
+      .featured-content {
+        padding: 14px 12px;
+      }
+
+      .featured-badge {
+        padding: 5px 10px;
+        font-size: 0.68rem;
+        margin-bottom: 8px;
+      }
+
+      .featured-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+      }
+
+      .featured-desc {
+        font-size: 0.78rem;
+        line-height: 1.35;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .featured-stats {
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .stat-value {
+        font-size: 0.95rem;
+      }
+
+      .stat-label {
+        font-size: 0.65rem;
+      }
+
+      .btn-play-featured {
+        padding: 9px 14px;
+        font-size: 0.78rem;
+        border-radius: 28px;
       }
     }
 
@@ -579,10 +669,62 @@ $isLoggedIn = isset($_SESSION['user_id']);
       }
     }
 
-    @media (max-width: 576px) {
+    
+    @media (max-width: 768px) {
       .movie-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 0 2px 8px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .movie-grid .movie-card {
+        flex: 0 0 clamp(118px, 31vw, 150px);
+        max-width: none;
+        scroll-snap-align: start;
+        border-radius: 12px;
+      }
+
+      .movie-poster {
+        aspect-ratio: 2 / 3;
+      }
+
+      .movie-poster img {
+        height: 100%;
+      }
+
+      .movie-info {
+        padding: 8px 8px 7px;
+      }
+
+      .movie-duration {
+        display: none;
+      }
+
+      .movie-title {
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .movie-poster img {
+        height: 100%;
+      }
+
+      .play-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      .movie-title {
+        font-size: 0.76rem;
+      }
+
+      .movie-rating {
+        font-size: 0.74rem;
       }
     }
 
@@ -799,7 +941,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
   <nav class="sidebar app-sidebar">
     <div class="logo">
       <a href="login.php">
-        <img src="Geometric Blue _A_ Logo Design.png" alt="Logo">
+        <img src="assets/logo.png" alt="Logo">
       </a>
     </div>
     <ul class="nav-links">
@@ -1151,7 +1293,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <section class="section container" id="latestAddedSection">
       <div class="section-header">
         <h2 class="section-title">Trending Now</h2>
-        <a href="search.html" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
+        <a href="genere.html?genre=trending" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
       </div>
       <div class="movie-grid" id="latestAddedGrid"></div>
     </section>
@@ -1450,11 +1592,31 @@ $isLoggedIn = isset($_SESSION['user_id']);
     wireMovieCardClicks();
 
     async function loadHomeSections() {
+      const latestFallback = [
+        { title: "Final Destination", poster: "Movies/final.jpg", duration: "1h 38min", rating_score: "4.2", media_type: "movie" },
+        { title: "Game Of Thrones", poster: "WebSeries/got.jpg", duration: "8 Seasons", rating_score: "4.9", media_type: "tv", season: 1, episode: 1 },
+        { title: "The Sopranos", poster: "WebSeries/sopranos.jpg", duration: "6 Seasons", rating_score: "4.6", media_type: "tv", season: 1, episode: 1 },
+        { title: "Breaking Bad", poster: "WebSeries/breaking.jpg", duration: "5 Seasons", rating_score: "4.8", media_type: "tv", season: 1, episode: 1 },
+        { title: "Dexter", poster: "WebSeries/dexter.jpg", duration: "8 Seasons", rating_score: "4.7", media_type: "tv", season: 1, episode: 1 },
+        { title: "You", poster: "WebSeries/you.jpg", duration: "4 Seasons", rating_score: "4.4", media_type: "tv", season: 1, episode: 1 }
+      ];
+
+      function renderLatestFallback() {
+        const latestAddedGrid = document.getElementById('latestAddedGrid');
+        if (latestAddedGrid) {
+          renderMovieGrid('latestAddedGrid', latestFallback, 'Trending', 'Movies');
+          wireMovieCardClicks(latestAddedGrid);
+        }
+      }
+
       try {
         const res = await fetch('api_movies.php?action=list');
         const data = await res.json();
         const movies = data.movies || [];
-        if (!movies.length) return;
+        if (!movies.length) {
+          renderLatestFallback();
+          return;
+        }
 
         const latest = [...movies]
           .sort((a, b) => (b.id || 0) - (a.id || 0))
@@ -1532,6 +1694,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           wireMovieCardClicks(latestAddedGrid);
         }
       } catch (err) {
+        renderLatestFallback();
         return;
       }
     }
@@ -1630,9 +1793,30 @@ $isLoggedIn = isset($_SESSION['user_id']);
     wireHeroAndFeaturedButtons();
   </script>
 
+
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+  <a href="index.php" class="active"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="movies.html"><i class="bi bi-film"></i><span>Movies</span></a>
+  <a href="webseries.html"><i class="bi bi-tv"></i><span>Web Series</span></a>
+</nav>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

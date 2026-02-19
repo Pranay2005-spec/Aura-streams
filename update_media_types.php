@@ -1,6 +1,12 @@
 <?php
 require_once __DIR__ . '/database.php';
 
+if (!empty($db_connect_error)) {
+    http_response_code(500);
+    echo "Database connection failed: " . $db_connect_error;
+    exit;
+}
+
 $titles = [
     'Breaking Bad',
     'Sopranos',
@@ -33,3 +39,8 @@ if (!$stmt->execute()) {
 }
 
 echo "Updated {$stmt->affected_rows} rows.";
+
+
+
+
+

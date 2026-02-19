@@ -10,6 +10,10 @@ function send_json($payload, $status = 200) {
     exit;
 }
 
+if (!empty($db_connect_error)) {
+    send_json(['error' => 'Database connection failed', 'details' => $db_connect_error], 500);
+}
+
 function read_json_body() {
     $raw = file_get_contents('php://input');
     if (!$raw) {
@@ -803,3 +807,8 @@ if ($action === 'watch_later_remove') {
 }
 
 send_json(['error' => 'Unknown action'], 400);
+
+
+
+
+

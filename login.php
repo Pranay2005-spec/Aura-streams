@@ -4,6 +4,10 @@ session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  if (!empty($db_connect_error)) {
+    echo "<script>alert('Database is not reachable right now. Check hosting DB credentials/host.'); window.location='login.php';</script>";
+    exit();
+  }
 
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -47,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sidebar.css">
-  <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="css/sidebar.css?v=6">
+  <link rel="stylesheet" href="css/footer.css?v=6">
 
     <style>
     :root {
@@ -197,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <nav class="sidebar">
   <div class="logo">
     <a href="login.php">
-      <img src="Geometric Blue _A_ Logo Design.png" alt="Logo">
+      <img src="assets/logo.png" alt="Logo">
     </a>
   </div>
   <ul class="nav-links">
@@ -219,6 +223,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <main class="main-content">
   <div class="login-container">
     <h2 class="login-heading">Login</h2>
+    <?php if (!empty($db_connect_error)): ?>
+      <div class="alert alert-danger py-2" role="alert">Database connection failed. Recheck InfinityFree DB host, username, password, and database name.</div>
+    <?php endif; ?>
     <form action="login.php" method="post">
       <div class="mb-3">
         <label for="email" class="form-label">Email Address</label>
@@ -304,9 +311,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <?php if (!empty($error)): ?>
     <p style="color: red;"><?= $error ?></p>
   <?php endif; ?>
+
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+  <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="movies.html"><i class="bi bi-film"></i><span>Movies</span></a>
+  <a href="webseries.html"><i class="bi bi-tv"></i><span>Web Series</span></a>
+</nav>
 </body>
 
 </html>
+
+
+
+
+
+
+
 
 
 

@@ -12,6 +12,10 @@ function is_strong_password($password) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!empty($db_connect_error)) {
+        echo "<script>alert('Database is not reachable right now. Check hosting DB credentials/host.'); window.location='signup.php';</script>";
+        exit();
+    }
 
     $username = trim($_POST['name'] ?? '');
     $email = trim($_POST['signupEmail'] ?? '');
@@ -84,8 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sidebar.css">
-  <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="css/sidebar.css?v=6">
+  <link rel="stylesheet" href="css/footer.css?v=6">
 <style>
     :root {
       --primary: #8b5cf6;
@@ -231,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <nav class="sidebar">
   <div class="logo">
     <a href="login.php">
-      <img src="Geometric Blue _A_ Logo Design.png" alt="Logo">
+      <img src="assets/logo.png" alt="Logo">
     </a>
   </div>
   <ul class="nav-links">
@@ -254,6 +258,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <!-- Signup Form -->
   <div class="signup-container">
     <h2 class="signup-heading">Sign Up</h2>
+    <?php if (!empty($db_connect_error)): ?>
+      <div class="alert alert-danger py-2" role="alert">Database connection failed. Recheck InfinityFree DB host, username, password, and database name.</div>
+    <?php endif; ?>
     <form action="signup.php" method="post">
       <div class="mb-3">
         <label for="name" class="form-label">Full Name</label>
@@ -362,8 +369,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   });
 </script>
   </main>
+
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+  <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
+  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="movies.html"><i class="bi bi-film"></i><span>Movies</span></a>
+  <a href="webseries.html"><i class="bi bi-tv"></i><span>Web Series</span></a>
+</nav>
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 

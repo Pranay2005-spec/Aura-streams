@@ -51,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/sidebar.css?v=6">
-  <link rel="stylesheet" href="css/footer.css?v=6">
+  <link rel="stylesheet" href="css/sidebar.css?v=9">
+  <link rel="stylesheet" href="css/footer.css?v=9">
 
     <style>
     :root {
@@ -193,6 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       }
     }
   </style>
+  <link rel="stylesheet" href="css/mobile.css?v=6">
 </head>
 
 <body>
@@ -211,11 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
     <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
     <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
-    <?php if ($isLoggedIn): ?>
-      <li><a href="logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
-    <?php else: ?>
-      <li><a href="login.php" class="active"><i class="bi bi-person-circle"></i> <span>Account</span></a></li>
-    <?php endif; ?>
+    <li><a href="account.php" class="active"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
   </ul>
 </nav>
 
@@ -315,12 +312,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
   <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
-  <a href="movies.html"><i class="bi bi-film"></i><span>Movies</span></a>
-  <a href="webseries.html"><i class="bi bi-tv"></i><span>Web Series</span></a>
+  <a href="account.php" class="active"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 
 </html>
+
+
+
+
+
 
 
 

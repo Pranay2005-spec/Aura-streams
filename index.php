@@ -18,8 +18,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/sidebar.css?v=8">
-  <link rel="stylesheet" href="css/footer.css?v=8">
+  <link rel="stylesheet" href="css/sidebar.css?v=9">
+  <link rel="stylesheet" href="css/footer.css?v=9">
 
   <style>
     :root {
@@ -681,10 +681,10 @@ $isLoggedIn = isset($_SESSION['user_id']);
       }
 
       .movie-grid .movie-card {
-        flex: 0 0 clamp(118px, 31vw, 150px);
-        max-width: none;
+        flex: 0 0 clamp(130px, 38vw, 165px);
+        max-width: clamp(130px, 38vw, 165px);
         scroll-snap-align: start;
-        border-radius: 12px;
+        border-radius: 14px;
       }
 
       .movie-poster {
@@ -933,6 +933,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       opacity: 1;
     }
   </style>
+  <link rel="stylesheet" href="css/mobile.css?v=6">
 </head>
 
 <body>
@@ -951,11 +952,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
       <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
       <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
-      <?php if ($isLoggedIn): ?>
-        <li><a href="logout.php"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></a></li>
-      <?php else: ?>
-        <li><a href="login.php"><i class="bi bi-person-circle"></i> <span>Account</span></a></li>
-      <?php endif; ?>
+      <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
     </ul>
   </nav>
 
@@ -1178,9 +1175,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 1 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Movies/eternal.jfif" alt="Eternal Sunshine">
-            <span class="movie-badge">New</span>
-            <div class="movie-overlay">
+            <img src="Movies/eternal.jfif" alt="Eternal Sunshine"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">1h 48min</div>
@@ -1197,9 +1192,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 2 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Genere/sci-fi.jpg" alt="Stranger Things">
-            <span class="movie-badge">Series</span>
-            <div class="movie-overlay">
+            <img src="Genere/sci-fi.jpg" alt="Stranger Things"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">4 Seasons</div>
@@ -1252,9 +1245,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 5 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Movies/oldboy.png" alt="Oldboy">
-            <span class="movie-badge">Korean</span>
-            <div class="movie-overlay">
+            <img src="Movies/oldboy.png" alt="Oldboy"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 0min</div>
@@ -1271,9 +1262,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 6 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Movies/isaw.jpg" alt="I Saw the Devil">
-            <span class="movie-badge">Thriller</span>
-            <div class="movie-overlay">
+            <img src="Movies/isaw.jpg" alt="I Saw the Devil"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">2h 21min</div>
@@ -1305,13 +1294,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <a href="genere.html?genre=trending" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
       </div>
 
-      <div class="movie-grid">
+      <div class="movie-grid" id="webSeriesStaticGrid">
         <!-- Card 1 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="Movies/final.jpg" alt="Final Destination">
-            <span class="movie-badge">Hot</span>
-            <div class="movie-overlay">
+            <img src="Movies/final.jpg" alt="Final Destination"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">1h 38min</div>
@@ -1328,9 +1315,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 2 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="WebSeries/got.jpg" alt="Game of Thrones">
-            <span class="movie-badge">#1 Series</span>
-            <div class="movie-overlay">
+            <img src="WebSeries/got.jpg" alt="Game of Thrones"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">8 Seasons</div>
@@ -1347,9 +1332,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 3 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="WebSeries/sopranos.jpg" alt="The Sopranos">
-            <span class="movie-badge">Legendary</span>
-            <div class="movie-overlay">
+            <img src="WebSeries/sopranos.jpg" alt="The Sopranos"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">6 Seasons</div>
@@ -1366,9 +1349,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 4 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="WebSeries/breaking.jpg" alt="Breaking Bad">
-            <span class="movie-badge">GOAT</span>
-            <div class="movie-overlay">
+            <img src="WebSeries/breaking.jpg" alt="Breaking Bad"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">5 Seasons</div>
@@ -1403,9 +1384,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <!-- Card 6 -->
         <div class="movie-card">
           <div class="movie-poster">
-            <img src="WebSeries/you.jpg" alt="You">
-            <span class="movie-badge">Trending</span>
-            <div class="movie-overlay">
+            <img src="WebSeries/you.jpg" alt="You"><div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">4 Seasons</div>
@@ -1423,43 +1402,20 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     <!-- Footer -->
     <footer>
-      <div class="container">
-        <div class="row">
-          <!-- Branding -->
-          <div class="col-md-4 mb-4">
-            <div class="footer-brand">
-              <h5>Aura<span>.stream</span></h5>
-              <p>Stream your favorite movies anytime, anywhere. The ultimate destination for entertainment.</p>
-            </div>
-          </div>
-
-          <!-- Navigation Links -->
-          <div class="col-md-4 mb-4">
-            <h6 class="footer-title">Quick Links</h6>
-            <ul class="footer-links">
-              <li><a href="index.php"><i class="bi bi-chevron-right"></i> Home</a></li>
-              <li><a href="search.html"><i class="bi bi-chevron-right"></i> Discover</a></li>
-              <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Support</a></li>
-              <li><a href="login.php"><i class="bi bi-chevron-right"></i> Account</a></li>
-            </ul>
-          </div>
-
-          <!-- Social Media / Contact -->
-          <div class="col-md-4 mb-4">
-            <h6 class="footer-title">Connect With Us</h6>
-            <div class="social-links">
-              <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i> Facebook</a>
-              <a href="https://x.com/?lang=en"><i class="bi bi-twitter-x"></i> Twitter</a>
-              <a href="https://mail.google.com/mail/u/0/"><i class="bi bi-envelope-fill"></i> support@aura.stream</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          © 2025 <span>Aura.stream</span> — All rights reserved. Made with <i class="bi bi-heart-fill" style="color: #ef4444;"></i>
-        </div>
+  <div class="container">
+    <div class="footer-compact">
+      <div class="footer-brand">
+        <h5>Aura<span>.stream</span></h5>
+        <p>Stream your favorite movies anytime, anywhere. The ultimate destination for entertainment.</p>
       </div>
-    </footer>
+      <div class="social-links" aria-label="Social links">
+        <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i> Facebook</a>
+        <a href="https://x.com/?lang=en"><i class="bi bi-twitter-x"></i> Twitter</a>
+        <a href="https://mail.google.com/mail/u/0/"><i class="bi bi-envelope-fill"></i> support@aura.stream</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
   </div>
 
@@ -1604,7 +1560,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       function renderLatestFallback() {
         const latestAddedGrid = document.getElementById('latestAddedGrid');
         if (latestAddedGrid) {
-          renderMovieGrid('latestAddedGrid', latestFallback, 'Trending', 'Movies');
+          renderMovieGrid('latestAddedGrid', latestFallback, 'Movies');
           wireMovieCardClicks(latestAddedGrid);
         }
       }
@@ -1653,19 +1609,19 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
         const newArrivalsGrid = document.getElementById('newArrivalsGrid');
         if (newArrivalsGrid) {
-          renderMovieGrid('newArrivalsGrid', newArrivals.length ? newArrivals : latest, 'New', 'NewArrivals');
+          renderMovieGrid('newArrivalsGrid', newArrivals.length ? newArrivals : latest, 'NewArrivals');
           wireMovieCardClicks(newArrivalsGrid);
         }
 
         const moviesGrid = document.getElementById('moviesGrid');
         if (moviesGrid) {
-          renderMovieGrid('moviesGrid', movieOnly.slice(0, 6), '', 'Movies');
+          renderMovieGrid('moviesGrid', movieOnly.slice(0, 6), 'Movies');
           wireMovieCardClicks(moviesGrid);
         }
 
         const seriesGrid = document.getElementById('seriesGrid');
         if (seriesGrid) {
-          renderMovieGrid('seriesGrid', webSeries.length ? webSeries : seriesOnly.slice(0, 6), '', 'WebSeries');
+          renderMovieGrid('seriesGrid', webSeries.length ? webSeries : seriesOnly.slice(0, 6), 'WebSeries');
           wireMovieCardClicks(seriesGrid);
         }
 
@@ -1678,19 +1634,19 @@ $isLoggedIn = isset($_SESSION['user_id']);
               return bScore - aScore;
             })
             .slice(0, 6);
-          renderMovieGrid('topRatedGrid', sortedByRating.length ? sortedByRating : latest, 'Top', 'Movies');
+          renderMovieGrid('topRatedGrid', sortedByRating.length ? sortedByRating : latest, 'Movies');
           wireMovieCardClicks(topRatedGrid);
         }
 
         const newReleasesGrid = document.getElementById('newReleasesGrid');
         if (newReleasesGrid) {
-          renderMovieGrid('newReleasesGrid', latest, 'New', 'Movies');
+          renderMovieGrid('newReleasesGrid', latest, 'Movies');
           wireMovieCardClicks(newReleasesGrid);
         }
 
         const latestAddedGrid = document.getElementById('latestAddedGrid');
         if (latestAddedGrid) {
-          renderMovieGrid('latestAddedGrid', latest, 'New', 'Movies');
+          renderMovieGrid('latestAddedGrid', latest, 'Movies');
           wireMovieCardClicks(latestAddedGrid);
         }
       } catch (err) {
@@ -1746,12 +1702,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
       img.src = next;
     }
 
-    function renderMovieGrid(containerId, items, badgeLabel, folderPath) {
+    function renderMovieGrid(containerId, items, folderPath) {
       const container = document.getElementById(containerId);
       if (!container) return;
       container.innerHTML = '';
       items.forEach(movie => {
-        const badge = badgeLabel ? `<span class="movie-badge">${badgeLabel}</span>` : '';
         const rating = movie.rating_score || movie.ratingScore || '4.0';
         const duration = movie.duration || '';
         const title = movie.title || 'Unknown';
@@ -1771,7 +1726,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
         card.innerHTML = `
         <div class="movie-poster">
           <img src="${poster}" alt="${title}" data-fallbacks="${posterFallbacks}" onerror="applyPosterFallback(this)">
-          ${badge}
           <div class="movie-overlay">
             <div class="play-btn"><i class="bi bi-play-fill"></i></div>
           </div>
@@ -1797,12 +1751,16 @@ $isLoggedIn = isset($_SESSION['user_id']);
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php" class="active"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
   <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
-  <a href="movies.html"><i class="bi bi-film"></i><span>Movies</span></a>
-  <a href="webseries.html"><i class="bi bi-tv"></i><span>Web Series</span></a>
+  <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 
 </html>
+
+
+
+
+
 
 
 

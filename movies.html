@@ -7,8 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/sidebar.css?v=8">
-  <link rel="stylesheet" href="css/footer.css?v=8">
+  <link rel="stylesheet" href="css/sidebar.css?v=9">
+  <link rel="stylesheet" href="css/footer.css?v=9">
   <style>
     :root {
       --primary: #8b5cf6;
@@ -103,10 +103,10 @@
       }
 
       .movie-grid .movie-card {
-        flex: 0 0 clamp(118px, 31vw, 150px);
-        max-width: none;
+        flex: 0 0 clamp(130px, 38vw, 165px);
+        max-width: clamp(130px, 38vw, 165px);
         scroll-snap-align: start;
-        border-radius: 12px;
+        border-radius: 14px;
       }
 
       .movie-poster {
@@ -297,6 +297,7 @@
       color: var(--text-secondary);
     }
   </style>
+  <link rel="stylesheet" href="css/mobile.css?v=6">
 </head>
 <body>
   <!-- Sidebar Navbar -->
@@ -313,7 +314,7 @@
       <li><a href="movies.html" class="active"><i class="bi bi-film"></i> <span>Movies</span></a></li>
       <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
       <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
-      <li><a href="login.php"><i class="bi bi-person-circle"></i> <span>Account</span></a></li>
+      <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
     </ul>
   </nav>
 
@@ -322,40 +323,20 @@
     <div id="moviesGrid" class="movie-grid"></div>
 
     <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="footer-brand">
-              <h5>Aura<span>.stream</span></h5>
-              <p>Stream your favorite movies anytime, anywhere. The ultimate destination for entertainment.</p>
-            </div>
-          </div>
-
-          <div class="col-md-4 mb-4">
-            <h6 class="footer-title">Quick Links</h6>
-            <ul class="footer-links">
-              <li><a href="index.php"><i class="bi bi-chevron-right"></i> Home</a></li>
-              <li><a href="search.html"><i class="bi bi-chevron-right"></i> Discover</a></li>
-              <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Support</a></li>
-              <li><a href="login.php"><i class="bi bi-chevron-right"></i> Account</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-4 mb-4">
-            <h6 class="footer-title">Connect With Us</h6>
-            <div class="social-links">
-              <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i> Facebook</a>
-              <a href="https://x.com/?lang=en"><i class="bi bi-twitter-x"></i> Twitter</a>
-              <a href="https://mail.google.com/mail/u/0/"><i class="bi bi-envelope-fill"></i> support@aura.stream</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          &copy; 2025 <span>Aura.stream</span> - All rights reserved. Made with <i class="bi bi-heart-fill" style="color: #ef4444;"></i>
-        </div>
+  <div class="container">
+    <div class="footer-compact">
+      <div class="footer-brand">
+        <h5>Aura<span>.stream</span></h5>
+        <p>Stream your favorite movies anytime, anywhere. The ultimate destination for entertainment.</p>
       </div>
-    </footer>
+      <div class="social-links" aria-label="Social links">
+        <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i> Facebook</a>
+        <a href="https://x.com/?lang=en"><i class="bi bi-twitter-x"></i> Twitter</a>
+        <a href="https://mail.google.com/mail/u/0/"><i class="bi bi-envelope-fill"></i> support@aura.stream</a>
+      </div>
+    </div>
+  </div>
+</footer>
   </main>
 
   <script>
@@ -481,11 +462,16 @@
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
   <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
-  <a href="movies.html" class="active"><i class="bi bi-film"></i><span>Movies</span></a>
-  <a href="webseries.html"><i class="bi bi-tv"></i><span>Web Series</span></a>
+  <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 </html>
+
+
+
+
+
+
 
 
 

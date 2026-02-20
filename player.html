@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
   <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/sidebar.css?v=6">
-  <link rel="stylesheet" href="css/footer.css?v=6">
+  <link rel="stylesheet" href="css/sidebar.css?v=9">
+  <link rel="stylesheet" href="css/footer.css?v=9">
 
   <style>
     :root {
@@ -1084,12 +1084,13 @@
       }
 
       .video-actions {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
       }
 
       .video-actions-left,
       .video-actions-right {
-        width: 100%;
+        width: 48%;
         justify-content: center;
       }
 
@@ -1161,6 +1162,7 @@
       .content {
       }
     }\n  </style>
+  <link rel="stylesheet" href="css/mobile.css?v=7">
 </head>
 <body>
 
@@ -1178,7 +1180,7 @@
     <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
     <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
     <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
-    <li><a href="login.php"><i class="bi bi-person-circle"></i> <span>Account</span></a></li>
+    <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
   </ul>
 </nav>
 
@@ -1220,18 +1222,11 @@
           <i class="bi bi-heart"></i>
           <span>Like</span>
         </button>
-        <button class="action-btn" onclick="addToList()">
-          <i class="bi bi-plus-lg"></i>
-          <span>My List</span>
-        </button>
       </div>
       <div class="video-actions-right">
         <button class="action-btn" onclick="shareMovie()">
           <i class="bi bi-share"></i>
           <span>Share</span>
-        </button>
-        <button class="action-btn">
-          <i class="bi bi-three-dots"></i>
         </button>
       </div>
     </div>
@@ -1356,9 +1351,7 @@
     <div class="recommendation-grid" id="recommendationGrid">
       <a href="player.html?title=Breaking%20Bad">
         <div class="recommendation-card">
-          <div class="card-image-wrapper">
-            <span class="card-badge">Trending</span>
-            <img src="WebSeries/breaking.jpg" alt="Breaking Bad" />
+          <div class="card-image-wrapper"><img src="WebSeries/breaking.jpg" alt="Breaking Bad" />
             <div class="card-overlay">
               <div class="play-icon">
                 <i class="bi bi-play-fill"></i>
@@ -1377,9 +1370,7 @@
       </a>
       <a href="player.html?title=American%20Psycho">
         <div class="recommendation-card">
-          <div class="card-image-wrapper">
-            <span class="card-badge">Popular</span>
-            <img src="Genere/psycho.jpg" alt="American Psycho" />
+          <div class="card-image-wrapper"><img src="Genere/psycho.jpg" alt="American Psycho" />
             <div class="card-overlay">
               <div class="play-icon">
                 <i class="bi bi-play-fill"></i>
@@ -1398,9 +1389,7 @@
       </a>
       <a href="player.html?title=Inception">
         <div class="recommendation-card">
-          <div class="card-image-wrapper">
-            <span class="card-badge">Must Watch</span>
-            <img src="Movies/inception.jpg" alt="Inception" />
+          <div class="card-image-wrapper"><img src="Movies/inception.jpg" alt="Inception" />
             <div class="card-overlay">
               <div class="play-icon">
                 <i class="bi bi-play-fill"></i>
@@ -2019,7 +2008,6 @@
       return;
     }
 
-    const badges = ["Trending", "Popular", "Top Pick", "Must Watch"];
     grid.innerHTML = items.map((item, index) => {
       const href = buildPlayerUrl({
         title: item.title,
@@ -2029,13 +2017,10 @@
         episode: item.episode
       });
       const mediaLabel = item.mediaType === "tv" ? "TV Series" : "Movie";
-      const badge = badges[index % badges.length];
       return `
         <a href="${href}">
           <div class="recommendation-card">
-            <div class="card-image-wrapper">
-              <span class="card-badge">${badge}</span>
-              <img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)}" />
+            <div class="card-image-wrapper"><img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)}" />
               <div class="card-overlay">
                 <div class="play-icon">
                   <i class="bi bi-play-fill"></i>
@@ -2601,11 +2586,16 @@
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
   <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
-  <a href="movies.html"><i class="bi bi-film"></i><span>Movies</span></a>
-  <a href="webseries.html"><i class="bi bi-tv"></i><span>Web Series</span></a>
+  <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 </html>
+
+
+
+
+
+
 
 
 

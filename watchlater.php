@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Movies - Aura.stream</title>
+  <title>Watch Later - Aura.stream</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
   <style>
     :root {
       --primary: #8b5cf6;
-      --primary-dark: #7c3aed;
       --secondary: #06b6d4;
       --accent: #f59e0b;
       --bg-dark: #09090b;
@@ -21,25 +20,15 @@
       --border-color: rgba(255, 255, 255, 0.08);
       --text-primary: #fafafa;
       --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
       --gradient-1: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
-      --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-      --shadow-glow: 0 0 60px rgba(139, 92, 246, 0.3);
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background-color: var(--bg-dark);
       font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: var(--text-primary);
       overflow-x: hidden;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -49,14 +38,12 @@
       height: 100%;
       background:
         radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+        radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
       pointer-events: none;
       z-index: -1;
     }
-
     a { text-decoration: none; color: inherit; }
-.section-heading {
+    .section-heading {
       font-size: 1.6rem;
       font-weight: 800;
       margin: 10px 0 25px;
@@ -64,7 +51,6 @@
       align-items: center;
       gap: 12px;
     }
-
     .section-heading::before {
       content: '';
       width: 5px;
@@ -72,26 +58,14 @@
       background: var(--gradient-1);
       border-radius: 5px;
     }
-
     .movie-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 25px;
     }
+    @media (max-width: 1200px) { .movie-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 992px) { .movie-grid { grid-template-columns: repeat(3, 1fr); } }
 
-    @media (max-width: 1200px) {
-      .movie-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    @media (max-width: 992px) {
-      .movie-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    
     @media (max-width: 768px) {
       .movie-grid {
         display: flex;
@@ -181,11 +155,7 @@
       opacity: 1;
     }
 
-    .movie-poster {
-      position: relative;
-      overflow: hidden;
-    }
-
+    .movie-poster { position: relative; overflow: hidden; }
     .movie-poster img {
       width: 100%;
       height: 280px;
@@ -246,6 +216,32 @@
     .movie-card:hover .movie-duration {
       opacity: 1;
     }
+
+    .card-actions {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 3;
+    }
+    .card-action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .card-action-btn:hover { background: #ef4444; border-color: #ef4444; }
+
     .movie-info {
       position: absolute;
       left: 0;
@@ -264,7 +260,6 @@
       opacity: 1;
     }
 
-    
     @media (hover: none) {
       .movie-info {
         transform: translateY(0);
@@ -281,26 +276,25 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
     .movie-rating {
       display: flex;
       align-items: center;
       gap: 6px;
       font-size: 0.86rem;
     }
-
-    .movie-rating i {
-      color: var(--accent);
-    }
-
-    .movie-rating span {
+    .movie-rating i { color: var(--accent); }
+    .movie-rating span { color: var(--text-secondary); }
+    .state-box {
+      border: 1px solid var(--border-color);
+      background: var(--bg-glass);
+      border-radius: 14px;
+      padding: 20px;
       color: var(--text-secondary);
     }
   </style>
   <link rel="stylesheet" href="css/mobile.css?v=6">
 </head>
 <body>
-  <!-- Sidebar Navbar -->
   <nav class="sidebar">
     <div class="logo">
       <a href="login.php">
@@ -309,18 +303,19 @@
     </div>
     <ul class="nav-links">
       <li><a href="index.php"><i class="bi bi-house-door-fill"></i> <span>Home</span></a></li>
-      <li><a href="search.html"><i class="bi bi-search"></i> <span>Discover</span></a></li>
-      <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
-      <li><a href="movies.html" class="active"><i class="bi bi-film"></i> <span>Movies</span></a></li>
-      <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-      <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
+      <li><a href="search.php"><i class="bi bi-search"></i> <span>Discover</span></a></li>
+      <li><a href="genere.php?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
+      <li><a href="movies.php"><i class="bi bi-film"></i> <span>Movies</span></a></li>
+      <li><a href="webseries.php"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
+      <li><a href="watchlater.php" class="active"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
       <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
     </ul>
   </nav>
 
   <main class="main-content">
-    <h3 class="section-heading">Movies</h3>
-    <div id="moviesGrid" class="movie-grid"></div>
+    <h3 class="section-heading">Watch Later</h3>
+    <div id="statusBox" class="state-box mb-4">Loading your watch list...</div>
+    <div id="watchLaterGrid" class="movie-grid"></div>
 
     <footer>
   <div class="container">
@@ -341,35 +336,6 @@
 
   <script>
     const API_URL = "api_movies.php";
-    const DEFAULT_POSTER = "Movies/fightclub.jpg";
-    const WEB_SERIES_POSTERS = new Set(["breaking.jpg", "dexter.jpg", "got.jpg", "lord of rings.jpg", "sopranos.jpg", "you.jpg"]);
-    const GENERE_POSTERS = new Set(["action.jpg", "adventure.webp", "comedy.jpg", "psycho.jpg", "romcom.webp", "sci-fi.jpg"]);
-    const FALLBACK_MOVIES = [
-      { title: "Inception", poster: "Movies/inception.jpg", duration: "2h 28m", rating_score: "4.8", media_type: "movie" },
-      { title: "The Dark Knight", poster: "Movies/dark knight.jpg", duration: "2h 32m", rating_score: "4.9", media_type: "movie" },
-      { title: "Whiplash", poster: "Movies/whiplash.jpg", duration: "1h 46m", rating_score: "4.7", media_type: "movie" },
-      { title: "Oldboy", poster: "Movies/oldboy.png", duration: "2h", rating_score: "4.6", media_type: "movie" },
-      { title: "Fight Club", poster: "Movies/fightclub.jpg", duration: "2h 19m", rating_score: "4.8", media_type: "movie" },
-      { title: "The Godfather", poster: "Movies/the godfather.png", duration: "2h 55m", rating_score: "4.9", media_type: "movie" }
-    ];
-
-    function resolvePosterPath(posterPath) {
-      const raw = (posterPath || "").toString().trim().replace(/\\/g, "/");
-      if (!raw) return DEFAULT_POSTER;
-      const lower = raw.toLowerCase();
-      if (lower.startsWith("http://") || lower.startsWith("https://") || lower.startsWith("data:")) {
-        return raw;
-      }
-      if (!lower.startsWith("thumbnails/")) {
-        return raw;
-      }
-      const filename = raw.split("/").pop();
-      const fileKey = (filename || "").toLowerCase();
-      if (!filename) return DEFAULT_POSTER;
-      if (WEB_SERIES_POSTERS.has(fileKey)) return `WebSeries/${filename}`;
-      if (GENERE_POSTERS.has(fileKey)) return `Genere/${filename}`;
-      return `Movies/${filename}`;
-    }
 
     function buildPlayerUrl({ title, tmdbId, mediaType, season, episode } = {}) {
       const cleanTmdb = (tmdbId || "").toString().trim();
@@ -382,32 +348,55 @@
         if (type === "tv") {
           if (season) params.set("season", season);
           if (episode) params.set("episode", episode);
-          if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
-          if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
+          params.set("episodeSelector", "true");
+          params.set("nextEpisode", "true");
         }
-        return `player.html?${params.toString()}`;
+        return `player.php?${params.toString()}`;
       }
-      if (title) {
-        return `player.html?title=${encodeURIComponent(title)}`;
-      }
-      return "player.html";
+      return title ? `player.php?title=${encodeURIComponent(title)}` : "player.php";
     }
+
+    async function removeWatchLater(movie) {
+      const res = await fetch(`${API_URL}?action=watch_later_remove`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: movie.title,
+          tmdb_id: movie.tmdb_id || "",
+          media_type: movie.media_type || "movie",
+          season: movie.season || 0,
+          episode: movie.episode || 0
+        })
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+      return res.json();
+    }
+
     function renderGrid(items) {
-      const grid = document.getElementById("moviesGrid");
+      const grid = document.getElementById("watchLaterGrid");
+      const statusBox = document.getElementById("statusBox");
       grid.innerHTML = "";
       if (!items.length) {
-        grid.innerHTML = '<div class="text-center text-secondary">No movies found.</div>';
+        statusBox.textContent = "No saved titles yet. Tap the heart icon on any movie or series to add it here.";
         return;
       }
+      statusBox.style.display = "none";
+
       items.forEach(movie => {
-        const tmdbId = movie.tmdb_id || movie.tmdbId || "";
-        const mediaType = movie.media_type || movie.mediaType || "movie";
-        const season = movie.season || "";
-        const episode = movie.episode || "";
-        const poster = resolvePosterPath(movie.poster || movie.image || DEFAULT_POSTER);
+        const poster = movie.poster || "Movies/fightclub.jpg";
+        const rating = movie.rating_score || "4.0";
         const duration = movie.duration || "";
-        const rating = movie.rating_score || movie.ratingScore || "4.0";
-        const href = buildPlayerUrl({ title: movie.title, tmdbId, mediaType, season, episode });
+        const href = buildPlayerUrl({
+          title: movie.title,
+          tmdbId: movie.tmdb_id,
+          mediaType: movie.media_type,
+          season: movie.season,
+          episode: movie.episode
+        });
+
         const card = document.createElement("div");
         card.className = "movie-card";
         card.innerHTML = `
@@ -417,74 +406,65 @@
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
             <div class="movie-duration">${duration}</div>
+            <div class="card-actions">
+              <button class="card-action-btn" title="Remove from Watch Later"><i class="bi bi-trash"></i></button>
+            </div>
           </div>
           <div class="movie-info">
             <h5 class="movie-title">${movie.title}</h5>
-            <div class="movie-rating">
-              <i class="bi bi-star-fill"></i>
-              <span>${rating}/5</span>
-            </div>
+            <div class="movie-rating"><i class="bi bi-star-fill"></i><span>${rating}/5</span></div>
           </div>
         `;
-        card.addEventListener("click", () => {
-          window.location.href = href;
+
+        card.addEventListener("click", () => { window.location.href = href; });
+
+        const removeBtn = card.querySelector(".card-action-btn");
+        removeBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          try {
+            await removeWatchLater(movie);
+            card.remove();
+            if (!document.querySelector("#watchLaterGrid .movie-card")) {
+              const status = document.getElementById("statusBox");
+              status.style.display = "block";
+              status.textContent = "No saved titles yet. Tap the heart icon on any movie or series to add it here.";
+            }
+          } catch (err) {
+            alert(err.message || "Failed to remove");
+          }
         });
+
         grid.appendChild(card);
       });
     }
 
-    function isMoviesFolderPoster(poster) {
-      return typeof poster === "string" && poster.trim().toLowerCase().startsWith("movies/");
-    }
-
-    function isWebSeriesPoster(poster) {
-      return typeof poster === "string" && poster.trim().toLowerCase().startsWith("webseries/");
-    }
-
-    async function loadMovies() {
+    async function loadWatchLater() {
+      const statusBox = document.getElementById("statusBox");
       try {
-        const res = await fetch(`${API_URL}?action=list`);
+        const res = await fetch(`${API_URL}?action=watch_later_list`);
+        if (res.status === 401) {
+          statusBox.innerHTML = `Please login to see your Watch Later list. <a href="login.php" style="color:#8b5cf6;">Login</a>`;
+          return;
+        }
         const data = await res.json();
-        const list = (data.movies || []).filter(item => {
-          const type = (item.media_type || item.mediaType || "movie").toString().toLowerCase();
-          const poster = resolvePosterPath(item.poster || "");
-          return type !== "tv" && !isWebSeriesPoster(poster);
-        });
-        renderGrid(list.length ? list : FALLBACK_MOVIES);
+        renderGrid(Array.isArray(data.movies) ? data.movies : []);
       } catch (err) {
-        renderGrid(FALLBACK_MOVIES);
+        statusBox.textContent = "Unable to load watch list right now.";
       }
     }
 
-    loadMovies();
+    loadWatchLater();
   </script>
+  
 
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="search.php"><i class="bi bi-search"></i><span>Search</span></a>
   <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

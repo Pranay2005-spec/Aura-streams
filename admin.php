@@ -312,6 +312,7 @@
     <input type="number" id="seasonInput" placeholder="Season (TV only)"/>
     <input type="number" id="episodeInput" placeholder="Episode (TV only)"/>
     <input type="text" id="posterInput" placeholder="Poster path (e.g., Thumbnails/poster.jpg)"/>
+    <input type="text" id="videoInput" placeholder="Video path or URL (e.g., videos/movie.mp4)"/>
     <input type="text" id="durationInput" placeholder="Duration (e.g., 2h 10m)"/>
     <input type="text" id="yearInput" placeholder="Year (e.g., 2023)"/>
     <input type="text" id="badgeInput" placeholder="Badge rating (e.g., 8.4)"/>
@@ -573,6 +574,7 @@
     document.getElementById("seasonInput").value = '';
     document.getElementById("episodeInput").value = '';
     document.getElementById("posterInput").value = '';
+    document.getElementById("videoInput").value = '';
     document.getElementById("durationInput").value = '';
     document.getElementById("yearInput").value = '';
     document.getElementById("badgeInput").value = '';
@@ -594,6 +596,7 @@
     document.getElementById("seasonInput").value = video.season || '';
     document.getElementById("episodeInput").value = video.episode || '';
     document.getElementById("posterInput").value = video.poster || '';
+    document.getElementById("videoInput").value = video.video || '';
     document.getElementById("durationInput").value = video.duration || '';
     document.getElementById("yearInput").value = video.year || '';
     document.getElementById("badgeInput").value = video.badge_rating || video.badgeRating || '';
@@ -612,6 +615,7 @@
     const seasonRaw = document.getElementById("seasonInput").value.trim();
     const episodeRaw = document.getElementById("episodeInput").value.trim();
     const poster = document.getElementById("posterInput").value.trim();
+    const videoInput = document.getElementById("videoInput").value.trim();
     const duration = document.getElementById("durationInput").value.trim();
     const year = document.getElementById("yearInput").value.trim();
     const badgeRating = document.getElementById("badgeInput").value.trim();
@@ -627,13 +631,16 @@
     const season = seasonRaw ? parseInt(seasonRaw, 10) : null;
     const episode = episodeRaw ? parseInt(episodeRaw, 10) : null;
 
+    const existingVideo = editIndex !== null ? ((videos[editIndex] && videos[editIndex].video) || "") : "";
+    const video = videoInput || existingVideo;
+
     const movie = {
       title,
       tmdb_id: tmdbId || "",
       media_type: mediaType,
       season: Number.isFinite(season) ? season : null,
       episode: Number.isFinite(episode) ? episode : null,
-      video: "",
+      video,
       poster,
       duration: duration || "2h 0m",
       year: year || "2024",

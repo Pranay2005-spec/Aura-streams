@@ -314,11 +314,11 @@
   </div>
   <ul class="nav-links">
     <li><a href="index.php"><i class="bi bi-house-door-fill"></i> <span>Home</span></a></li>
-    <li><a href="search.html" class="active"><i class="bi bi-search"></i> <span>Discover</span></a></li>
-    <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
-    <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
-    <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
+    <li><a href="search.php" class="active"><i class="bi bi-search"></i> <span>Discover</span></a></li>
+    <li><a href="genere.php?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
+    <li><a href="movies.php"><i class="bi bi-film"></i> <span>Movies</span></a></li>
+    <li><a href="webseries.php"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
+    <li><a href="watchlater.php"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
   </ul>
 </nav>
@@ -340,7 +340,7 @@
     <h3 class="section-heading">Might like</h3>
     <!-- Card 1 -->
     <div class="col-6 col-md-2">
-      <a href="player.html?title=Eternal%20Sunshine%20of%20the%20Spotless%20Mind" class="text-decoration-none">
+      <a href="player.php?title=Eternal%20Sunshine%20of%20the%20Spotless%20Mind" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
             <img src="Movies/eternal.jfif" alt="Eternal Sunshine of the Spotless Mind">
@@ -359,7 +359,7 @@
 
     <!-- Card 2 -->
     <div class="col-6 col-md-2">
-      <a href="player.html?title=Stranger%20Things" class="text-decoration-none">
+      <a href="player.php?title=Stranger%20Things" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
             <img src="Genere/sci-fi.jpg" alt="Stranger Things">
@@ -378,7 +378,7 @@
 
     <!-- Card 3 -->
     <div class="col-6 col-md-2">
-      <a href="player.html?title=Inception" class="text-decoration-none">
+      <a href="player.php?title=Inception" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
             <img src="Movies/inception.jpg" alt="Inception">
@@ -397,7 +397,7 @@
 
     <!-- Card 4 -->
     <div class="col-6 col-md-2">
-      <a href="player.html?title=500%20Days%20of%20Summer" class="text-decoration-none">
+      <a href="player.php?title=500%20Days%20of%20Summer" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
             <img src="Movies/500days.jpg" alt="500 Days of Summer">
@@ -416,7 +416,7 @@
 
     <!-- Card 5 -->
     <div class="col-6 col-md-2">
-      <a href="player.html?title=Oldboy" class="text-decoration-none">
+      <a href="player.php?title=Oldboy" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
             <img src="Movies/oldboy.png" alt="Oldboy">
@@ -435,7 +435,7 @@
 
     <!-- Card 6 -->
     <div class="col-6 col-md-2">
-      <a href="player.html?title=I%20Saw%20the%20Devil" class="text-decoration-none">
+      <a href="player.php?title=I%20Saw%20the%20Devil" class="text-decoration-none">
         <div class="movie-card">
           <div class="movie-poster">
             <img src="Movies/isaw.jpg" alt="I Saw the Devil">
@@ -595,12 +595,12 @@
         if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
         if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
       }
-      return `player.html?${params.toString()}`;
+      return `player.php?${params.toString()}`;
     }
     if (title) {
-      return `player.html?title=${encodeURIComponent(title)}`;
+      return `player.php?title=${encodeURIComponent(title)}`;
     }
-    return "player.html";
+    return "player.php";
   }
 
   // Create result container element
@@ -726,11 +726,12 @@
 
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-  <a href="search.html" class="active"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="search.php" class="active"><i class="bi bi-search"></i><span>Search</span></a>
   <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 </html> 
+
 
 
 

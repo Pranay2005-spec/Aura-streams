@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Web Series - Aura.stream</title>
+  <title>Movies - Aura.stream</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -73,132 +73,6 @@
       border-radius: 5px;
     }
 
-    .movie-card {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      height: 100%;
-    }
-    .movie-card::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      background: var(--gradient-1);
-      border-radius: 18px;
-      opacity: 0;
-      z-index: -1;
-      transition: opacity 0.3s ease;
-    }
-    .movie-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.2);
-      border-color: transparent;
-    }
-    .movie-card:hover::before { opacity: 1; }
-    .movie-poster {
-      position: relative;
-      overflow: hidden;
-    }
-    .movie-poster img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .movie-card:hover .movie-poster img { transform: scale(1.1); }
-    .movie-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.9) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .movie-card:hover .movie-overlay { opacity: 1; }
-    .play-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: var(--gradient-1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: #fff;
-      transform: scale(0);
-      transition: transform 0.3s ease;
-    }
-    .movie-card:hover .play-btn { transform: scale(1); }
-    .movie-duration {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      padding: 5px 10px;
-      background: rgba(0, 0, 0, 0.8);
-      border-radius: 6px;
-      font-size: 0.75rem;
-      color: #fff;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .movie-card:hover .movie-duration { opacity: 1; }
-    .movie-info {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 14px 14px 12px;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 8, 10, 0.88) 45%, rgba(8, 8, 10, 0.98) 100%);
-      transform: translateY(100%);
-      opacity: 0;
-      transition: transform 0.32s ease, opacity 0.32s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .movie-card:hover .movie-info {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    
-    @media (hover: none) {
-      .movie-info {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .movie-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .movie-rating {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.86rem;
-    }
-
-    .movie-rating i {
-      color: var(--accent);
-    }
-
-    .movie-rating span {
-      color: var(--text-secondary);
-    }
-
     .movie-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -217,6 +91,7 @@
       }
     }
 
+    
     @media (max-width: 768px) {
       .movie-grid {
         display: flex;
@@ -274,6 +149,153 @@
         font-size: 0.74rem;
       }
     }
+
+    .movie-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .movie-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: var(--gradient-1);
+      border-radius: 18px;
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.2);
+      border-color: transparent;
+    }
+
+    .movie-card:hover::before {
+      opacity: 1;
+    }
+
+    .movie-poster {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .movie-poster img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .movie-card:hover .movie-poster img {
+      transform: scale(1.1);
+    }
+
+    .movie-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.9) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .movie-card:hover .movie-overlay {
+      opacity: 1;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--gradient-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      transform: scale(0);
+      transition: transform 0.3s ease;
+    }
+
+    .movie-card:hover .play-btn {
+      transform: scale(1);
+    }
+
+    .movie-duration {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .movie-card:hover .movie-duration {
+      opacity: 1;
+    }
+    .movie-info {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 14px 12px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 8, 10, 0.88) 45%, rgba(8, 8, 10, 0.98) 100%);
+      transform: translateY(100%);
+      opacity: 0;
+      transition: transform 0.32s ease, opacity 0.32s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .movie-card:hover .movie-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    
+    @media (hover: none) {
+      .movie-info {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .movie-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .movie-rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.86rem;
+    }
+
+    .movie-rating i {
+      color: var(--accent);
+    }
+
+    .movie-rating span {
+      color: var(--text-secondary);
+    }
   </style>
   <link rel="stylesheet" href="css/mobile.css?v=6">
 </head>
@@ -287,18 +309,18 @@
     </div>
     <ul class="nav-links">
       <li><a href="index.php"><i class="bi bi-house-door-fill"></i> <span>Home</span></a></li>
-      <li><a href="search.html"><i class="bi bi-search"></i> <span>Discover</span></a></li>
-      <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
-      <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
-      <li><a href="webseries.html" class="active"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-      <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
+      <li><a href="search.php"><i class="bi bi-search"></i> <span>Discover</span></a></li>
+      <li><a href="genere.php?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
+      <li><a href="movies.php" class="active"><i class="bi bi-film"></i> <span>Movies</span></a></li>
+      <li><a href="webseries.php"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
+      <li><a href="watchlater.php"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
       <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
     </ul>
   </nav>
 
   <main class="main-content">
-    <h3 class="section-heading">Web Series</h3>
-    <div id="seriesGrid" class="movie-grid"></div>
+    <h3 class="section-heading">Movies</h3>
+    <div id="moviesGrid" class="movie-grid"></div>
 
     <footer>
   <div class="container">
@@ -319,16 +341,16 @@
 
   <script>
     const API_URL = "api_movies.php";
-    const DEFAULT_POSTER = "WebSeries/breaking.jpg";
+    const DEFAULT_POSTER = "Movies/fightclub.jpg";
     const WEB_SERIES_POSTERS = new Set(["breaking.jpg", "dexter.jpg", "got.jpg", "lord of rings.jpg", "sopranos.jpg", "you.jpg"]);
     const GENERE_POSTERS = new Set(["action.jpg", "adventure.webp", "comedy.jpg", "psycho.jpg", "romcom.webp", "sci-fi.jpg"]);
-    const SERIES_TITLE_HINTS = new Set(["breaking bad", "dexter", "game of thrones", "sopranos", "the sopranos", "you"]);
-    const FALLBACK_SERIES = [
-      { title: "Breaking Bad", poster: "WebSeries/breaking.jpg", duration: "5 Seasons", rating_score: "4.9", media_type: "tv", season: 1, episode: 1 },
-      { title: "Dexter", poster: "WebSeries/dexter.jpg", duration: "8 Seasons", rating_score: "4.7", media_type: "tv", season: 1, episode: 1 },
-      { title: "Game of Thrones", poster: "WebSeries/got.jpg", duration: "8 Seasons", rating_score: "4.8", media_type: "tv", season: 1, episode: 1 },
-      { title: "The Sopranos", poster: "WebSeries/sopranos.jpg", duration: "6 Seasons", rating_score: "4.8", media_type: "tv", season: 1, episode: 1 },
-      { title: "You", poster: "WebSeries/you.jpg", duration: "4 Seasons", rating_score: "4.5", media_type: "tv", season: 1, episode: 1 }
+    const FALLBACK_MOVIES = [
+      { title: "Inception", poster: "Movies/inception.jpg", duration: "2h 28m", rating_score: "4.8", media_type: "movie" },
+      { title: "The Dark Knight", poster: "Movies/dark knight.jpg", duration: "2h 32m", rating_score: "4.9", media_type: "movie" },
+      { title: "Whiplash", poster: "Movies/whiplash.jpg", duration: "1h 46m", rating_score: "4.7", media_type: "movie" },
+      { title: "Oldboy", poster: "Movies/oldboy.png", duration: "2h", rating_score: "4.6", media_type: "movie" },
+      { title: "Fight Club", poster: "Movies/fightclub.jpg", duration: "2h 19m", rating_score: "4.8", media_type: "movie" },
+      { title: "The Godfather", poster: "Movies/the godfather.png", duration: "2h 55m", rating_score: "4.9", media_type: "movie" }
     ];
 
     function resolvePosterPath(posterPath) {
@@ -352,35 +374,30 @@
     function buildPlayerUrl({ title, tmdbId, mediaType, season, episode } = {}) {
       const cleanTmdb = (tmdbId || "").toString().trim();
       const type = (mediaType || "movie").toString().trim().toLowerCase();
-      if (cleanTmdb) {
-        const params = new URLSearchParams();
-        params.set("tmdbId", cleanTmdb);
+      const params = new URLSearchParams();
+      if (cleanTmdb) params.set("tmdbId", cleanTmdb);
+      if (title) params.set("title", title);
+      if (type === "tv" || cleanTmdb || season || episode) {
         params.set("type", type === "tv" ? "tv" : "movie");
-        if (title) params.set("title", title);
-        if (type === "tv") {
-          if (season) params.set("season", season);
-          if (episode) params.set("episode", episode);
-          if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
-          if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
-        }
-        return `player.html?${params.toString()}`;
       }
-      if (title) {
-        return `player.html?title=${encodeURIComponent(title)}`;
+      if (type === "tv") {
+        if (season) params.set("season", season);
+        if (episode) params.set("episode", episode);
+        if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
+        if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
       }
-      return "player.html";
+      return params.toString() ? `player.php?${params.toString()}` : "player.php";
     }
-
     function renderGrid(items) {
-      const grid = document.getElementById("seriesGrid");
+      const grid = document.getElementById("moviesGrid");
       grid.innerHTML = "";
       if (!items.length) {
-        grid.innerHTML = '<div class="text-center text-secondary">No web series found.</div>';
+        grid.innerHTML = '<div class="text-center text-secondary">No movies found.</div>';
         return;
       }
       items.forEach(movie => {
         const tmdbId = movie.tmdb_id || movie.tmdbId || "";
-        const mediaType = "tv";
+        const mediaType = movie.media_type || movie.mediaType || "movie";
         const season = movie.season || "";
         const episode = movie.episode || "";
         const poster = resolvePosterPath(movie.poster || movie.image || DEFAULT_POSTER);
@@ -391,7 +408,7 @@
         card.className = "movie-card";
         card.innerHTML = `
           <div class="movie-poster">
-            <img src="${poster}" alt="${movie.title}" onerror="this.onerror=null;this.src='WebSeries/breaking.jpg';">
+            <img src="${poster}" alt="${movie.title}" onerror="this.onerror=null;this.src='Movies/fightclub.jpg';">
             <div class="movie-overlay">
               <div class="play-btn"><i class="bi bi-play-fill"></i></div>
             </div>
@@ -412,40 +429,41 @@
       });
     }
 
+    function isMoviesFolderPoster(poster) {
+      return typeof poster === "string" && poster.trim().toLowerCase().startsWith("movies/");
+    }
+
     function isWebSeriesPoster(poster) {
       return typeof poster === "string" && poster.trim().toLowerCase().startsWith("webseries/");
     }
 
-    function looksLikeSeriesTitle(title) {
-      const t = (title || "").toString().trim().toLowerCase();
-      return SERIES_TITLE_HINTS.has(t);
-    }
-
-    async function loadSeries() {
+    async function loadMovies() {
       try {
         const res = await fetch(`${API_URL}?action=list`);
         const data = await res.json();
         const list = (data.movies || []).filter(item => {
-          const type = (item.media_type || item.mediaType || "").toString().toLowerCase();
+          const type = (item.media_type || item.mediaType || "movie").toString().toLowerCase();
           const poster = resolvePosterPath(item.poster || "");
-          return type === "tv" || isWebSeriesPoster(poster) || looksLikeSeriesTitle(item.title);
+          return type !== "tv" && !isWebSeriesPoster(poster);
         });
-        renderGrid(list.length ? list : FALLBACK_SERIES);
+        renderGrid(list.length ? list : FALLBACK_MOVIES);
       } catch (err) {
-        renderGrid(FALLBACK_SERIES);
+        renderGrid(FALLBACK_MOVIES);
       }
     }
 
-    loadSeries();
+    loadMovies();
   </script>
 
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="search.php"><i class="bi bi-search"></i><span>Search</span></a>
   <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 </html>
+
+
 
 
 

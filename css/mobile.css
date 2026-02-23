@@ -223,6 +223,58 @@ svg {
     line-height: 62px !important;
   }
 
+  .season-episode-bar {
+    margin-top: 8px !important;
+    padding: 12px !important;
+    border-radius: 12px !important;
+    gap: 10px !important;
+  }
+
+  .season-episode-label {
+    font-size: 0.88rem !important;
+  }
+
+  .selector-columns {
+    gap: 8px !important;
+  }
+
+  .selector-column {
+    gap: 6px !important;
+  }
+
+  .selector-title {
+    font-size: 0.68rem !important;
+  }
+
+  .episode-list,
+  .season-list {
+    gap: 6px !important;
+    max-height: 180px !important;
+  }
+
+  .episode-item {
+    padding: 8px 10px !important;
+    border-radius: 10px !important;
+    gap: 8px !important;
+  }
+
+  .episode-number {
+    min-width: 34px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .episode-title {
+    font-size: 0.8rem !important;
+  }
+
+  .episode-play-icon {
+    font-size: 0.82rem !important;
+  }
+
+  .season-episode-hint {
+    font-size: 0.72rem !important;
+  }
+
   .movie-details {
     padding: 16px !important;
     border-radius: 16px !important;
@@ -332,6 +384,18 @@ svg {
 }
 
 @media (max-width: 576px) {
+  .season-episode-bar {
+    padding: 10px !important;
+  }
+
+  .episode-item {
+    padding: 7px 9px !important;
+  }
+
+  .episode-title {
+    font-size: 0.76rem !important;
+  }
+
   .genre-grid .genre-card {
     border-radius: 12px !important;
   }

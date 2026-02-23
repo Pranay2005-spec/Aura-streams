@@ -1,0 +1,13 @@
+DirectoryIndex index.php
+
+RewriteEngine On
+
+# Redirect legacy .html routes to the new .php routes.
+RewriteRule ^admin\.html$ admin.php [R=301,L,NC]
+RewriteRule ^contact\.html$ contact.php [R=301,L,NC]
+RewriteRule ^genere\.html$ genere.php [R=301,L,NC]
+RewriteRule ^movies\.html$ movies.php [R=301,L,NC]
+RewriteRule ^player\.html$ player.php [R=301,L,NC]
+RewriteRule ^search\.html$ search.php [R=301,L,NC]
+RewriteRule ^watchlater\.html$ watchlater.php [R=301,L,NC]
+RewriteRule ^webseries\.html$ webseries.php [R=301,L,NC]

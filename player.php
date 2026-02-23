@@ -1175,11 +1175,11 @@
   </div>
   <ul class="nav-links">
     <li><a href="index.php"><i class="bi bi-house-door-fill"></i> <span>Home</span></a></li>
-    <li><a href="search.html"><i class="bi bi-search"></i> <span>Discover</span></a></li>
-    <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
-    <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
-    <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
+    <li><a href="search.php"><i class="bi bi-search"></i> <span>Discover</span></a></li>
+    <li><a href="genere.php?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
+    <li><a href="movies.php"><i class="bi bi-film"></i> <span>Movies</span></a></li>
+    <li><a href="webseries.php"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
+    <li><a href="watchlater.php"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
   </ul>
 </nav>
@@ -1349,7 +1349,7 @@
       <button class="see-all-btn">View All <i class="bi bi-chevron-right"></i></button>
     </div>
     <div class="recommendation-grid" id="recommendationGrid">
-      <a href="player.html?title=Breaking%20Bad">
+      <a href="player.php?title=Breaking%20Bad">
         <div class="recommendation-card">
           <div class="card-image-wrapper"><img src="WebSeries/breaking.jpg" alt="Breaking Bad" />
             <div class="card-overlay">
@@ -1368,7 +1368,7 @@
           </div>
         </div>
       </a>
-      <a href="player.html?title=American%20Psycho">
+      <a href="player.php?title=American%20Psycho">
         <div class="recommendation-card">
           <div class="card-image-wrapper"><img src="Genere/psycho.jpg" alt="American Psycho" />
             <div class="card-overlay">
@@ -1387,7 +1387,7 @@
           </div>
         </div>
       </a>
-      <a href="player.html?title=Inception">
+      <a href="player.php?title=Inception">
         <div class="recommendation-card">
           <div class="card-image-wrapper"><img src="Movies/inception.jpg" alt="Inception" />
             <div class="card-overlay">
@@ -1406,7 +1406,7 @@
           </div>
         </div>
       </a>
-      <a href="player.html?title=I%20Saw%20the%20Devil">
+      <a href="player.php?title=I%20Saw%20the%20Devil">
         <div class="recommendation-card">
           <div class="card-image-wrapper">
             <img src="Movies/isaw.jpg" alt="I Saw the Devil" />
@@ -2076,7 +2076,7 @@
   let currentMovie = null;
 
   function guessVideoType(src) {
-    const lower = (src || "").toLowerCase();
+    const lower = ((src || "").split("?")[0] || "").toLowerCase();
     if (lower.endsWith(".mp4")) return "video/mp4";
     if (lower.endsWith(".webm")) return "video/webm";
     if (lower.endsWith(".ogg") || lower.endsWith(".ogv")) return "video/ogg";
@@ -2094,12 +2094,37 @@
       return false;
     }
     const source = document.createElement("source");
-    source.src = src;
+    source.src = encodeURI(src);
     const type = guessVideoType(src);
     if (type) source.type = type;
     video.appendChild(source);
     video.load();
     return true;
+  }
+
+  function useEmbedPlayer(config, urlParams) {
+    if (!config) return false;
+    applyEmbed(config, urlParams);
+    return true;
+  }
+
+  function useLocalPlayer(videoPath) {
+    const htmlPlayer = document.getElementById("my-video");
+    const embedPlayer = document.getElementById("embedPlayer");
+    const messageArea = document.getElementById("messageArea");
+    if (!htmlPlayer) return false;
+
+    if (embedPlayer) {
+      embedPlayer.classList.remove("active");
+      embedPlayer.src = "";
+    }
+    htmlPlayer.classList.remove("hidden");
+    const applied = setHtmlVideoSource(videoPath);
+    if (messageArea) {
+      messageArea.classList.remove("active");
+      messageArea.innerText = "";
+    }
+    return applied;
   }
 
   function setMovieDetails(movieInput) {
@@ -2163,10 +2188,20 @@
     const params = new URLSearchParams(window.location.search);
     const rawTitle = params.get("title");
     const titleParam = normalizeTitle(rawTitle);
+    const forcedTypeRaw = (params.get("type") || "").toString().trim().toLowerCase();
+    const forcedType = forcedTypeRaw === "tv" || forcedTypeRaw === "movie" ? forcedTypeRaw : "";
     currentMovie = movieData[titleParam] || movieData["fight club"];
     const apiMovie = await fetchMovieFromApi(rawTitle || currentMovie.title);
     if (apiMovie) {
       currentMovie = mergeMovie(currentMovie, apiMovie);
+    }
+    if (forcedType) {
+      currentMovie.media_type = forcedType;
+      currentMovie.mediaType = forcedType;
+    }
+    if (forcedType === "tv") {
+      if (!currentMovie.season) currentMovie.season = 1;
+      if (!currentMovie.episode) currentMovie.episode = 1;
     }
     setMovieDetails(currentMovie);
     await incrementViewCount(currentMovie.title);
@@ -2392,21 +2427,19 @@
   function buildPlayerUrl({ title, tmdbId, mediaType, season, episode } = {}) {
     const cleanTmdb = (tmdbId || "").toString().trim();
     const type = (mediaType || "movie").toString().trim().toLowerCase();
-    if (cleanTmdb) {
-      const params = new URLSearchParams();
-      params.set("tmdbId", cleanTmdb);
+    const params = new URLSearchParams();
+    if (cleanTmdb) params.set("tmdbId", cleanTmdb);
+    if (title) params.set("title", title);
+    if (type === "tv" || cleanTmdb || season || episode) {
       params.set("type", type === "tv" ? "tv" : "movie");
-      if (title) params.set("title", title);
-      if (type === "tv") {
-        if (season) params.set("season", season);
-        if (episode) params.set("episode", episode);
-        if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
-        if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
-      }
-      return `player.html?${params.toString()}`;
     }
-    if (title) return `player.html?title=${encodeURIComponent(title)}`;
-    return "player.html";
+    if (type === "tv") {
+      if (season) params.set("season", season);
+      if (episode) params.set("episode", episode);
+      if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
+      if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
+    }
+    return params.toString() ? `player.php?${params.toString()}` : "player.php";
   }
 
   // Initialize video player with custom settings
@@ -2469,38 +2502,31 @@
 
     const movieEmbed = buildEmbedConfig({
       tmdbId: currentMovie?.tmdb_id || currentMovie?.tmdbId,
-      mediaType: currentMovie?.media_type || currentMovie?.mediaType,
+      mediaType: inferMediaType(currentMovie),
       season: currentMovie?.season,
       episode: currentMovie?.episode
     });
 
     const embedConfig = urlEmbed || movieEmbed;
-    if (embedConfig) {
-      applyEmbed(embedConfig, urlParams);
-    } else {
-      const htmlPlayer = document.getElementById("my-video");
-      const embedPlayer = document.getElementById("embedPlayer");
-      const messageArea = document.getElementById("messageArea");
-      const hasLocalVideo = !!(currentMovie && currentMovie.video);
+    const htmlPlayer = document.getElementById("my-video");
+    const messageArea = document.getElementById("messageArea");
+    const hasLocalVideo = !!(currentMovie && currentMovie.video);
 
-      if (embedPlayer) {
-        embedPlayer.classList.remove("active");
-        embedPlayer.src = "";
+    if (hasLocalVideo) {
+      useLocalPlayer(currentMovie.video);
+      if (htmlPlayer) {
+        htmlPlayer.onerror = () => {
+          if (!useEmbedPlayer(embedConfig, urlParams) && messageArea) {
+            messageArea.classList.add("active");
+            messageArea.innerText = "This video file could not be played. Use MP4 (H.264/AAC) or add a TMDB ID fallback.";
+          }
+        };
       }
-
-      if (hasLocalVideo) {
-        htmlPlayer.classList.remove("hidden");
-        setHtmlVideoSource(currentMovie.video);
-        if (messageArea) {
-          messageArea.classList.remove("active");
-          messageArea.innerText = "";
-        }
-      } else {
-        htmlPlayer.classList.add("hidden");
-        if (messageArea) {
-          messageArea.classList.add("active");
-          messageArea.innerText = "No TMDB ID or local video found for this title. Add it in Admin to play.";
-        }
+    } else if (!useEmbedPlayer(embedConfig, urlParams)) {
+      if (htmlPlayer) htmlPlayer.classList.add("hidden");
+      if (messageArea) {
+        messageArea.classList.add("active");
+        messageArea.innerText = "No TMDB ID or local video found for this title. Add it in Admin to play.";
       }
     }
 
@@ -2508,7 +2534,9 @@
     const seasonList = document.getElementById("seasonList");
     const episodeList = document.getElementById("episodeList");
     const hintText = document.getElementById("seasonEpisodeHint");
-    const isTv = (embedConfig && embedConfig.mediaType === "tv")
+    const isTvByUrl = (urlParams.get("type") || "").toString().toLowerCase() === "tv";
+    const isTv = isTvByUrl
+      || (embedConfig && embedConfig.mediaType === "tv")
       || (currentMovie && (currentMovie.media_type || currentMovie.mediaType) === "tv");
 
     if (seasonBar && seasonList && episodeList && isTv) {
@@ -2585,11 +2613,12 @@
 
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="search.php"><i class="bi bi-search"></i><span>Search</span></a>
   <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 </html>
+
 
 
 

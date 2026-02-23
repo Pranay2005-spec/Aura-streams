@@ -241,11 +241,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </div>
   <ul class="nav-links">
     <li><a href="index.php"><i class="bi bi-house-door-fill"></i> <span>Home</span></a></li>
-    <li><a href="search.html"><i class="bi bi-search"></i> <span>Discover</span></a></li>
-    <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
-    <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
-    <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-    <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
+    <li><a href="search.php"><i class="bi bi-search"></i> <span>Discover</span></a></li>
+    <li><a href="genere.php?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
+    <li><a href="movies.php"><i class="bi bi-film"></i> <span>Movies</span></a></li>
+    <li><a href="webseries.php"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
+    <li><a href="watchlater.php"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
     <li><a href="account.php" class="active"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
   </ul>
 </nav>
@@ -369,11 +369,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="search.php"><i class="bi bi-search"></i><span>Search</span></a>
   <a href="account.php" class="active"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 </html>
+
 
 
 

@@ -86,6 +86,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       padding: 10px 14px;
       border-radius: 12px;
       backdrop-filter: blur(10px);
+      max-width: calc(100% - 80px);
     }
 
     .welcome-text {
@@ -101,11 +102,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     /* Main Content */
     .main-content {
-    }
-
-    @media (max-width: 768px) {
-.main-content {
-      }
+      margin-left: 60px !important;
+      width: calc(100% - 60px) !important;
+      max-width: calc(100% - 60px) !important;
     }
 
     /* Hero Carousel */
@@ -215,8 +214,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     .carousel-control-prev,
     .carousel-control-next {
-      width: 60px;
-      height: 60px;
+      width: 52px;
+      height: 52px;
       background: var(--bg-glass);
       border: 1px solid var(--border-color);
       border-radius: 50%;
@@ -232,11 +231,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
     }
 
     .carousel-control-prev {
-      left: 30px;
+      left: 14px;
     }
 
     .carousel-control-next {
-      right: 30px;
+      right: 14px;
     }
 
     .carousel-control-prev:hover,
@@ -265,6 +264,31 @@ $isLoggedIn = isset($_SESSION['user_id']);
     }
 
     @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .hero-welcome {
+        right: 12px;
+        max-width: calc(100% - 24px);
+      }
+
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 44px;
+        height: 44px;
+      }
+
+      .carousel-control-prev {
+        left: 8px;
+      }
+
+      .carousel-control-next {
+        right: 8px;
+      }
+
       .carousel-overlay {
         bottom: 15%;
         left: 5%;
@@ -947,11 +971,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
     </div>
     <ul class="nav-links">
       <li><a href="index.php" class="active"><i class="bi bi-house-door-fill"></i> <span>Home</span></a></li>
-      <li><a href="search.html"><i class="bi bi-search"></i> <span>Discover</span></a></li>
-      <li><a href="genere.html?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
-      <li><a href="movies.html"><i class="bi bi-film"></i> <span>Movies</span></a></li>
-      <li><a href="webseries.html"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
-      <li><a href="watchlater.html"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
+      <li><a href="search.php"><i class="bi bi-search"></i> <span>Discover</span></a></li>
+      <li><a href="genere.php?genre=top-rated"><i class="bi bi-trophy"></i> <span>Top Rated</span></a></li>
+      <li><a href="movies.php"><i class="bi bi-film"></i> <span>Movies</span></a></li>
+      <li><a href="webseries.php"><i class="bi bi-tv"></i> <span>Web Series</span></a></li>
+      <li><a href="watchlater.php"><i class="bi bi-bookmark-heart"></i> <span>Watch Later</span></a></li>
       <li><a href="account.php"><i class="bi bi-person-circle"></i> <span>Login</span></a></li>
     </ul>
   </nav>
@@ -985,7 +1009,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <span class="meta-badge">1h 53min</span>
               <span class="meta-badge">Action</span>
             </div>
-            <a href="player.html" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
+            <a href="player.php" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
           </div>
         </div>
 
@@ -1002,7 +1026,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <span class="meta-badge">2h 19min</span>
               <span class="meta-badge">Drama</span>
             </div>
-            <a href="player.html" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
+            <a href="player.php" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
           </div>
         </div>
 
@@ -1019,7 +1043,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <span class="meta-badge">2h 22min</span>
               <span class="meta-badge">Drama</span>
             </div>
-            <a href="player.html" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
+            <a href="player.php" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
           </div>
         </div>
 
@@ -1036,7 +1060,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <span class="meta-badge">2h 28min</span>
               <span class="meta-badge">Sci-Fi</span>
             </div>
-            <a href="player.html" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
+            <a href="player.php" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
           </div>
         </div>
 
@@ -1053,7 +1077,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
               <span class="meta-badge">2h 32min</span>
               <span class="meta-badge">Action</span>
             </div>
-            <a href="player.html" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
+            <a href="player.php" class="btn-watch"><i class="bi bi-play-fill"></i> Watch Now</a>
           </div>
         </div>
       </div>
@@ -1073,7 +1097,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
       </div>
 
       <div class="genre-grid">
-        <a href="genere.html?genre=action" class="genre-link">
+        <a href="genere.php?genre=action" class="genre-link">
           <div class="genre-card">
             <img src="Genere/action.jpg" alt="Action" class="genre-img">
             <div class="genre-icon"><i class="bi bi-lightning-fill"></i></div>
@@ -1081,7 +1105,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           </div>
         </a>
 
-        <a href="genere.html?genre=adventure" class="genre-link">
+        <a href="genere.php?genre=adventure" class="genre-link">
           <div class="genre-card">
             <img src="Genere/adventure.webp" alt="Adventure" class="genre-img">
             <div class="genre-icon"><i class="bi bi-compass-fill"></i></div>
@@ -1089,7 +1113,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           </div>
         </a>
 
-        <a href="genere.html?genre=comedy" class="genre-link">
+        <a href="genere.php?genre=comedy" class="genre-link">
           <div class="genre-card">
             <img src="Genere/comedy.jpg" alt="Comedy" class="genre-img">
             <div class="genre-icon"><i class="bi bi-emoji-laughing-fill"></i></div>
@@ -1097,7 +1121,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           </div>
         </a>
 
-        <a href="genere.html?genre=sci-fi" class="genre-link">
+        <a href="genere.php?genre=sci-fi" class="genre-link">
           <div class="genre-card">
             <img src="Genere/sci-fi.jpg" alt="sci-fi" class="genre-img">
             <div class="genre-icon"><i class="bi bi-rocket-takeoff-fill"></i></div>
@@ -1105,7 +1129,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           </div>
         </a>
 
-        <a href="genere.html?genre=rom-com" class="genre-link">
+        <a href="genere.php?genre=rom-com" class="genre-link">
           <div class="genre-card">
             <img src="Genere/romcom.webp" alt="Rom-com" class="genre-img">
             <div class="genre-icon"><i class="bi bi-heart-fill"></i></div>
@@ -1113,7 +1137,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           </div>
         </a>
 
-        <a href="genere.html?genre=psychological" class="genre-link">
+        <a href="genere.php?genre=psychological" class="genre-link">
           <div class="genre-card">
             <img src="Genere/psycho.jpg" alt="Psychological" class="genre-img">
             <div class="genre-icon"><i class="bi bi-brain"></i></div>
@@ -1156,7 +1180,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 <div class="stat-label">Year</div>
               </div>
             </div>
-            <a href="player.html" class="btn-play-featured">
+            <a href="player.php" class="btn-play-featured">
               <i class="bi bi-play-fill"></i> Play Now
             </a>
           </div>
@@ -1168,7 +1192,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <section class="section container">
       <div class="section-header">
         <h2 class="section-title">New Releases</h2>
-        <a href="genere.html?genre=new-releases" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
+        <a href="genere.php?genre=new-releases" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
       </div>
 
       <div class="movie-grid">
@@ -1282,7 +1306,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <section class="section container" id="latestAddedSection">
       <div class="section-header">
         <h2 class="section-title">Trending Now</h2>
-        <a href="genere.html?genre=trending" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
+        <a href="genere.php?genre=trending" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
       </div>
       <div class="movie-grid" id="latestAddedGrid"></div>
     </section>
@@ -1291,7 +1315,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <section class="section container">
       <div class="section-header">
         <h2 class="section-title">Web-Series</h2>
-        <a href="genere.html?genre=trending" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
+        <a href="genere.php?genre=trending" class="see-all-btn">View All <i class="bi bi-chevron-right"></i></a>
       </div>
 
       <div class="movie-grid" id="webSeriesStaticGrid">
@@ -1431,23 +1455,19 @@ $isLoggedIn = isset($_SESSION['user_id']);
     } = {}) {
       const cleanTmdb = (tmdbId || "").toString().trim();
       const type = (mediaType || "movie").toString().trim().toLowerCase();
-      if (cleanTmdb) {
-        const params = new URLSearchParams();
-        params.set("tmdbId", cleanTmdb);
+      const params = new URLSearchParams();
+      if (cleanTmdb) params.set("tmdbId", cleanTmdb);
+      if (title) params.set("title", title);
+      if (type === "tv" || cleanTmdb || season || episode) {
         params.set("type", type === "tv" ? "tv" : "movie");
-        if (title) params.set("title", title);
-        if (type === "tv") {
-          if (season) params.set("season", season);
-          if (episode) params.set("episode", episode);
-          if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
-          if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
-        }
-        return `player.html?${params.toString()}`;
       }
-      if (title) {
-        return `player.html?title=${encodeURIComponent(title)}`;
+      if (type === "tv") {
+        if (season) params.set("season", season);
+        if (episode) params.set("episode", episode);
+        if (!params.has("episodeSelector")) params.set("episodeSelector", "true");
+        if (!params.has("nextEpisode")) params.set("nextEpisode", "true");
       }
-      return "player.html";
+      return params.toString() ? `player.php?${params.toString()}` : "player.php";
     }
 
     function titleToPlayerUrl(title) {
@@ -1492,10 +1512,14 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     function buildPlayerUrlFromMovie(movie, fallbackTitle = "") {
       if (!movie) return titleToPlayerUrl(fallbackTitle);
+      const explicitType = (movie.media_type || movie.mediaType || "").toString().toLowerCase();
+      const looksTv = ((movie.duration || "").toString().toLowerCase().includes("season") ||
+        ((movie.poster || "").toString().toLowerCase().startsWith("webseries/")));
+      const mediaType = looksTv ? "tv" : (explicitType === "tv" ? "tv" : (explicitType || "movie"));
       return buildPlayerUrl({
         title: movie.title || fallbackTitle,
         tmdbId: movie.tmdb_id || movie.tmdbId,
-        mediaType: movie.media_type || movie.mediaType,
+        mediaType,
         season: movie.season,
         episode: movie.episode
       });
@@ -1530,14 +1554,19 @@ $isLoggedIn = isset($_SESSION['user_id']);
         card.addEventListener('click', () => {
           const titleEl = card.querySelector('.movie-title');
           const tmdbId = card.dataset.tmdbId || '';
-          const mediaType = card.dataset.mediaType || '';
+          const durationEl = card.querySelector('.movie-duration');
+          const posterEl = card.querySelector('.movie-poster img');
+          const mediaType = (card.dataset.mediaType || '').toString().trim().toLowerCase();
+          const looksTv = ((durationEl?.textContent || '').toLowerCase().includes('season') ||
+            ((posterEl?.getAttribute('src') || '').toLowerCase().startsWith('webseries/')));
+          const inferredType = looksTv ? 'tv' : (mediaType === 'tv' ? 'tv' : (mediaType || 'movie'));
           const season = card.dataset.season || '';
           const episode = card.dataset.episode || '';
           const title = titleEl ? titleEl.textContent.trim() : '';
           window.location.href = buildPlayerUrl({
             title,
             tmdbId,
-            mediaType,
+            mediaType: inferredType,
             season,
             episode
           });
@@ -1750,12 +1779,13 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
 <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="index.php" class="active"><i class="bi bi-house-door-fill"></i><span>Home</span></a>
-  <a href="search.html"><i class="bi bi-search"></i><span>Search</span></a>
+  <a href="search.php"><i class="bi bi-search"></i><span>Search</span></a>
   <a href="account.php"><i class="bi bi-person-circle"></i><span>Profile</span></a>
 </nav>
 </body>
 
 </html>
+
 
 
 
